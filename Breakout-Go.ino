@@ -1,4 +1,5 @@
 #include <odroid_go.h>
+#include "Level.h"
 
 const unsigned long LOOP_DELAY = 1000 / 33;                                                                 // we aim for 30 fps
 const unsigned int HEIGHT = TFT_WIDTH;
@@ -14,23 +15,13 @@ struct slider {
 
 typedef struct slider Slider;
 
-struct level {
-  int number;
-  int borderLeft;
-  int borderTop;
-  int borderRight;
-};
-
-typedef struct level Level;
-
-Level currentLevel;
+Level currentLevel{};
 Slider slider;
 
 // Initialization
 void setup() {
   GO.begin();
   
-  initializeLevel();
   initializeSlider();
 
   clearScreen();
@@ -61,27 +52,19 @@ void clearScreen() {
 }
 
 void drawBorders() {
-  GO.lcd.fillRect(0, 0, currentLevel.borderLeft, HEIGHT, TFT_LIGHTGREY);
-  GO.lcd.fillRect(0, 0, WIDTH, currentLevel.borderTop, TFT_LIGHTGREY);
-  GO.lcd.fillRect(WIDTH - currentLevel.borderRight, 0, currentLevel.borderRight, HEIGHT, TFT_LIGHTGREY);    
+  GO.lcd.fillRect(0, 0, currentLevel.getBorderLeft(), HEIGHT, TFT_LIGHTGREY);
+  GO.lcd.fillRect(0, 0, WIDTH, currentLevel.getBorderTop(), TFT_LIGHTGREY);
+  GO.lcd.fillRect(WIDTH - currentLevel.getBorderRight(), 0, currentLevel.getBorderRight(), HEIGHT, TFT_LIGHTGREY);    
 }
 
 void drawSlider(unsigned int color) {
   GO.lcd.fillRect(int(slider.positionX), SLIDER_POSITION_Y, slider.width, slider.height, color);
 }
 
-// Fill currentLevel some some useful values for first tests
-void initializeLevel() {
-  currentLevel.number = 1;
-  currentLevel.borderLeft = 5;
-  currentLevel.borderTop = 5;
-  currentLevel.borderRight = 5;
-}
-
 void initializeSlider() {
   slider.width = 30;
   slider.height = 3;
-  slider.positionX = (WIDTH - currentLevel.borderLeft - currentLevel.borderRight - slider.width) / 2;
+  slider.positionX = (WIDTH - currentLevel.getBorderLeft() - currentLevel.getBorderRight() - slider.width) / 2;
   slider.speed = 5.5; 
 }
 
@@ -94,8 +77,8 @@ void updateSliderPosition() {
     slider.positionX -= slider.speed;
   if(1 == GO.JOY_X.isAxisPressed()) 
     slider.positionX += slider.speed;
-  if(slider.positionX < float(currentLevel.borderLeft))
-    slider.positionX = float(currentLevel.borderLeft);
-  if(slider.positionX > float(WIDTH - currentLevel.borderRight - slider.width))
-    slider.positionX = float(WIDTH - currentLevel.borderRight - slider.width);
+  if(slider.positionX < float(currentLevel.getBorderLeft()))
+    slider.positionX = float(currentLevel.getBorderLeft());
+  if(slider.positionX > float(WIDTH - currentLevel.getBorderRight() - slider.width))
+    slider.positionX = float(WIDTH - currentLevel.getBorderRight() - slider.width);
 }
