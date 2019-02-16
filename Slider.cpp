@@ -15,7 +15,7 @@ float Slider::getPositionX() {
 }
 
 float Slider::getPositionY() {
-  positionY;
+  return positionY;
 }
 
 int Slider::getWidth() {

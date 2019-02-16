@@ -14,13 +14,13 @@ class Slider {
   public:
     Slider(Level& level, unsigned int screenWidth, unsigned int screenHeight);
     
-    bool isMoving();
     float getPositionX();
     float getPositionY();
     int getWidth();
     int getHeight();
     float getSpeed();
-
+    
+    bool isMoving();
     void updatePosition(Level& level, int screenWidth);
 };
 
