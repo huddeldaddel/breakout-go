@@ -1,8 +1,9 @@
 #include <odroid_go.h>
 #include "Slider.h"
 
-Slider::Slider(Level& level, int screenWidth) : width{30}, height{3}, speed{5.5} {
+Slider::Slider(Level& level, unsigned int screenWidth, unsigned int screenHeight) : width{30}, height{3}, speed{5.5} {
   positionX = (screenWidth - level.getBorderLeft() - level.getBorderRight() - 30) / 2; 
+  positionY = screenHeight -10;
 }
 
 bool Slider::isMoving() {
@@ -11,6 +12,10 @@ bool Slider::isMoving() {
 
 float Slider::getPositionX() {
   return positionX;
+}
+
+float Slider::getPositionY() {
+  positionY;
 }
 
 int Slider::getWidth() {
