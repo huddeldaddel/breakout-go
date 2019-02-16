@@ -1,9 +1,11 @@
 #include <odroid_go.h>
 #include "Ball.h"
 
+const int DEFAULT_RADIUS = 5;
 const float DEFAULT_SPEED = 4;
   
 Ball::Ball(Slider& slider) {
+  radius = DEFAULT_RADIUS;
   updatePositionOnSlider(slider);
 }
 
@@ -13,6 +15,10 @@ float Ball::getPositionX() {
 
 float Ball::getPositionY() {
   return positionY;
+}
+
+int Ball::getRadius() {
+  return radius;
 }
 
 float Ball::getSpeedX() {
@@ -28,10 +34,11 @@ bool Ball::shouldStart() {
 }
     
 bool Ball::isMoving() {
-  return !(0 == int(speedX)) && (0 == int(speedY));
+  return moving;
 }
 
 void Ball::start() {
+  moving = true;
   speedX = DEFAULT_SPEED;
   if(GO.BtnB.isPressed() == 1) {
     speedX *= -1;
@@ -42,6 +49,22 @@ void Ball::start() {
 void Ball::updatePosition(Level& level, Slider& slider, unsigned int screenWidth, unsigned int screenHeight) {
   positionX += speedX;
   positionY += speedY;
+  
+  if (positionX + radius > (screenWidth - level.getBorderRight())) {                    // bounce off right
+    positionX -= 2 *((positionX + radius) - (screenWidth - level.getBorderRight()));
+    speedX *= -1;
+  } else if (positionX - radius < level.getBorderLeft()) {                              // bounce off left
+    positionX -= 2 *((positionX - radius) - (level.getBorderLeft()));
+    speedX *= -1;
+  }
+
+  if (positionY - radius < level.getBorderTop()) {
+    positionY += 2 *((positionY - radius) + (level.getBorderTop()));
+    speedY *= -1;
+  } else {
+    
+  }
+  
 }
 
 void Ball::updatePositionOnSlider(Slider& slider) {

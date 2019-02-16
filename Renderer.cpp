@@ -21,7 +21,7 @@ void Renderer::renderBorders(Level& level, unsigned int width, unsigned int heig
 }
 
 void Renderer::renderBall(Ball& ball, unsigned int color) {
-  GO.lcd.fillCircle(ball.getPositionX(), ball.getPositionY(), 5, color); 
+  GO.lcd.fillCircle(ball.getPositionX(), ball.getPositionY(), ball.getRadius(), color); 
 }
 
 void Renderer::renderBall(Ball& ball) {

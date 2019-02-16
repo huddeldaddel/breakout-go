@@ -5,8 +5,10 @@
 
 class Ball {
   private:
+    bool moving;
     float positionX;
     float positionY;
+    int radius;
     float speedX;
     float speedY;
   public:
@@ -14,6 +16,7 @@ class Ball {
 
     float getPositionX();
     float getPositionY();
+    int getRadius();
     float getSpeedX();
     float getSpeedY();
     
