@@ -1,3 +1,4 @@
+#include <odroid_go.h>
 #include "Level.h"
 
 // Currently just some default values for an empty first level
@@ -18,4 +19,16 @@ int Level::getBorderTop() {
 
 int Level::getBorderRight() {
   return borderRight;
+}
+
+Rectangle Level::getBorderLeftRect() {
+  return Rectangle{0, 0, borderLeft, TFT_WIDTH};
+}
+
+Rectangle Level::getBorderTopRect() {
+  return Rectangle{0, 0, TFT_HEIGHT, borderTop};
+}
+
+Rectangle Level::getBorderRightRect() {
+  return Rectangle{TFT_HEIGHT - borderRight, 0, borderRight, TFT_WIDTH};   
 }

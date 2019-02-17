@@ -1,7 +1,6 @@
 #ifndef _SLIDER_
 #define _SLIDER_
 
-// #include <odroid_go.h>
 #include "Level.h"
 
 class Slider {
@@ -19,7 +18,8 @@ class Slider {
     int getWidth();
     int getHeight();
     float getSpeed();
-    
+
+    Rectangle toRect();
     bool isMoving();
     void reset(Level& level, unsigned int screenWidth, unsigned int screenHeight);
     void updatePosition(Level& level, int screenWidth);

@@ -1,8 +1,18 @@
 #include <odroid_go.h>
+#include "Rectangle.h"
 #include "Slider.h"
 
 Slider::Slider(Level& level, unsigned int screenWidth, unsigned int screenHeight) {
   reset(level, screenWidth, screenHeight);
+}
+
+Rectangle Slider::toRect() {
+  Rectangle result{};
+  result.positionX = int(positionX);
+  result.positionY = int(positionY);
+  result.width = width;
+  result.height = height;
+  return result;
 }
 
 bool Slider::isMoving() {

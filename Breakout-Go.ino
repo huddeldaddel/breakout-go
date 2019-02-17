@@ -60,7 +60,7 @@ void loop() {
     renderer.renderBall(ball);
   
     if(slider.isMoving()) {
-      renderer.removeSlider(slider);                // TODO: Improve this. Removing and repainting causes flickering  
+      renderer.removeSlider(slider);
       slider.updatePosition(currentLevel, WIDTH);
       if(!ball.isMoving()) {
         renderer.removeBall(ball);
@@ -78,13 +78,13 @@ void loop() {
 }
 
 void printWelcomeMessage() {
-  GO.lcd.setCursor(95, HEIGHT / 2);
+  GO.lcd.setCursor(95, HEIGHT / 2 - 30);
   if(gameOver) {
     GO.lcd.println("GAME OVER !\n");
   } else {
     GO.lcd.println("BREAKOUT GO\n");
   }
-  GO.lcd.setCursor(95, HEIGHT / 2 + 30);
+  GO.lcd.setCursor(95, HEIGHT / 2);
   GO.lcd.println("PRESS START");
 }
 
@@ -93,7 +93,7 @@ void startNewGame() {
   gameOver = false;
 
   renderer.clearScreen();
-  renderer.renderBorders(currentLevel, WIDTH, HEIGHT);
+  renderer.renderBorders(currentLevel);
   renderer.renderSlider(slider);
   renderer.renderBall(ball);
 }
