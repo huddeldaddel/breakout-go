@@ -11,8 +11,9 @@ class Ball {
     int radius;
     float speedX;
     float speedY;
+    void(&onDeath)() ; 
   public:
-    Ball(Slider& slider);
+    Ball(Slider& slider, void(&onDeath)());
 
     float getPositionX();
     float getPositionY();
@@ -21,6 +22,7 @@ class Ball {
     float getSpeedY();
     
     bool isMoving();
+    void reset();
     void updatePosition(Level& level, Slider& slider, unsigned int screenWidth, unsigned int screenHeight);
     void updatePositionOnSlider(Slider& slider);
     bool shouldStart();

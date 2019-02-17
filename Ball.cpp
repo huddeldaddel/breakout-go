@@ -4,7 +4,7 @@
 const int DEFAULT_RADIUS = 3;
 const float DEFAULT_SPEED = 4;
   
-Ball::Ball(Slider& slider) {
+Ball::Ball(Slider& slider, void(&onDeath)()): onDeath{onDeath} {
   radius = DEFAULT_RADIUS;
   updatePositionOnSlider(slider);
 }
@@ -37,6 +37,13 @@ bool Ball::isMoving() {
   return moving;
 }
 
+void Ball::reset() {
+  moving = false;
+  speedX = 0;
+  speedY = 0;
+  radius = DEFAULT_RADIUS;
+}
+
 void Ball::start() {
   moving = true;
   speedX = DEFAULT_SPEED;
@@ -61,7 +68,7 @@ void Ball::updatePosition(Level& level, Slider& slider, unsigned int screenWidth
   if (positionY - radius <= level.getBorderTop()) {                                      // bounce off top
     positionY += 2 *((positionY - radius) + (level.getBorderTop()));
     speedY *= -1;
-  } else if ((speedY > 0) && (positionY + radius >= slider.getPositionY()) && 
+  } else if ((speedY > 0) && (positionY + radius >= slider.getPositionY()) &&            // bounce off slider 
              (positionY - speedY + radius < slider.getPositionY()) && 
              (positionX >= slider.getPositionX()) && 
              (positionX <= slider.getPositionX() + slider.getWidth())) {
@@ -69,8 +76,8 @@ void Ball::updatePosition(Level& level, Slider& slider, unsigned int screenWidth
     speedY *= -1;
   }
 
-  if (positionY > screenHeight) {
-    // Game over
+  if (positionY > screenHeight) {                                                        // death!
+    onDeath();
   }
   
 }

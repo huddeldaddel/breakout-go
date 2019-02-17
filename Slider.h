@@ -21,6 +21,7 @@ class Slider {
     float getSpeed();
     
     bool isMoving();
+    void reset(Level& level, unsigned int screenWidth, unsigned int screenHeight);
     void updatePosition(Level& level, int screenWidth);
 };
 
