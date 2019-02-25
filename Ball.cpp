@@ -57,7 +57,7 @@ void Ball::updatePosition(Level& level, Slider& slider, unsigned int screenWidth
   positionX += speedX;
   positionY += speedY;
   
-  if (positionX + radius >= (screenWidth - level.getBorderRight())) {                    // bounce off right
+  if(positionX + radius >= (screenWidth - level.getBorderRight())) {                     // bounce off right
     positionX -= 2 *((positionX + radius) - (screenWidth - level.getBorderRight()));
     speedX *= -1;
   } else if (positionX - radius <= level.getBorderLeft()) {                              // bounce off left
@@ -65,15 +65,25 @@ void Ball::updatePosition(Level& level, Slider& slider, unsigned int screenWidth
     speedX *= -1;
   }
 
-  if (positionY - radius <= level.getBorderTop()) {                                      // bounce off top
-    positionY += 2 *((positionY - radius) + (level.getBorderTop()));
+  if((speedY < 0) && (positionY - radius <= level.getBorderTop())) {                     // bounce off top
+    positionY += 2 *(level.getBorderTop() - (positionY - radius));
     speedY *= -1;
-  } else if ((speedY > 0) && (positionY + radius >= slider.getPositionY()) &&            // bounce off slider 
-             (positionY - speedY + radius < slider.getPositionY()) && 
-             (positionX >= slider.getPositionX()) && 
-             (positionX <= slider.getPositionX() + slider.getWidth())) {
-    positionY -= 2 *((positionY + radius) - slider.getPositionY());
-    speedY *= -1;
+  } else if((speedY > 0) &&                                                              // bounce off slider 
+            (positionY + radius >= slider.getPositionY() + slider.getHeight()) &&            
+            (positionY - speedY + radius < slider.getPositionY() + slider.getHeight())) {
+    const float interceptX = (positionX - speedX) + speedX * ((slider.getPositionY() - radius - positionY) / speedY);
+    if((interceptX >= slider.getPositionX()) && (interceptX <= slider.getPositionX() + slider.getWidth())) {
+      positionY -= 2 *((positionY + radius) - slider.getPositionY());
+      speedY *= -1; 
+    } else if((interceptX < slider.getPositionX()) && (interceptX + radius >= slider.getPositionX())) {
+      positionY -= 2 *((positionY + radius) - slider.getPositionY());
+      speedY *= -1;
+      speedX = abs(speedX) * -1;
+    } else if((interceptX > slider.getPositionX() + slider.getWidth()) && (interceptX - radius -radius <= slider.getPositionX() + slider.getWidth())) {
+      positionY -= 2 *((positionY + radius) - slider.getPositionY());
+      speedY *= -1;
+      speedX = abs(speedX);
+    }
   }
 
   if (positionY > screenHeight) {                                                        // death!
