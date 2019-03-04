@@ -11,11 +11,11 @@ const int DEFAULT_LIFE_COUNT = 3;
 
 Level currentLevel{};
 Slider slider{currentLevel, WIDTH, HEIGHT};
-Ball ball{slider, handleDeath};
-Renderer renderer{};
 
 int lives = 0;
 bool gameOver = false;
+Renderer renderer{};
+Ball ball{slider, handleDeath};
 
 // Initialization
 void setup() {

@@ -1,14 +1,26 @@
 // Breakout-Win.cpp : Diese Datei enthält die Funktion "main". Hier beginnt und endet die Ausführung des Programms.
 //
 
-#include "pch.h"
-#include "../../breakout-go/Rectangle.h"
 #include <iostream>
 
+#include "WindowsDevice/WindowsDevice.h"
+
 int main() {
-	Rectangle r = Rectangle();
-    std::cout << "Hello World!\n";
-	std::cout << r.mork;
+	Device* device = new WindowsDevice();
+
+	std::cout << "Input test!\n";
+	for (int i = 0; i < 60; i++) {
+		device->sleep(1000);
+		std::cout << "Button A pressed: " << (device->isButtonAPressed() ? "yes" : "no") << "\n";
+		std::cout << "Button B pressed: " << (device->isButtonBPressed() ? "yes" : "no") << "\n";
+		std::cout << "Direction down pressed: " << (device->isDirectionDownPressed() ? "yes" : "no") << "\n";
+		std::cout << "Direction left pressed: " << (device->isDirectionLeftPressed() ? "yes" : "no") << "\n";
+		std::cout << "Direction up pressed: " << (device->isDirectionUpPressed() ? "yes" : "no") << "\n";
+		std::cout << "Direction right pressed: " << (device->isDirectionRightPressed() ? "yes" : "no") << "\n";
+	}
+	delete device;
+	
+	
 }
 
 // Programm ausführen: STRG+F5 oder "Debuggen" > Menü "Ohne Debuggen starten"

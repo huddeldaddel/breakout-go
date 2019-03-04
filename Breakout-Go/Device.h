@@ -1,0 +1,21 @@
+#ifndef _DEVICE_
+#define _DEVICE_
+
+class Device {
+  public:
+    virtual void fillScreenRect(const int x, const int y, const int w, const int h, const unsigned int color) const = 0;
+    
+    virtual int getScreenWidth() const = 0;
+    virtual int getScreenHeight() const = 0;
+  
+    virtual bool isButtonAPressed() const = 0;
+    virtual bool isButtonBPressed() const = 0;  
+    virtual bool isDirectionDownPressed() const = 0;
+    virtual bool isDirectionLeftPressed() const = 0;
+    virtual bool isDirectionUpPressed() const = 0;
+    virtual bool isDirectionRightPressed() const = 0;
+
+    virtual void sleep(const int millis) const = 0;
+};
+
+#endif

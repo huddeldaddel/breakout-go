@@ -1,4 +1,9 @@
+/Breakout-Win/x64/**
 /Breakout-Win/Debug/**
+/Breakout-Win-Test/x64/**
 /Breakout-Win-Test/Debug/**
 /Debug/**
+/x64/**
+/x86/**
+
 .vs/**

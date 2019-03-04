@@ -15,18 +15,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h">
+    <ClInclude Include="..\Breakout-Go\Device.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\breakout-go\Rectangle.h">
+    <ClInclude Include="WindowsDevice\WindowsDevice.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pch.cpp">
+    <ClCompile Include="Breakout-Win.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="Breakout-Win.cpp">
+    <ClCompile Include="WindowsDevice\WindowsDevice.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
