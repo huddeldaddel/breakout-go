@@ -1,1 +1,4 @@
-.vscode/**
+/Breakout-Win/Debug/**
+/Breakout-Win-Test/Debug/**
+/Debug/**
+.vs/**
