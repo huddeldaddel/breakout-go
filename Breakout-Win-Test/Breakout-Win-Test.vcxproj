@@ -169,6 +169,7 @@
     <ClCompile Include="..\Breakout-Go\Rectangle.cpp" />
     <ClCompile Include="..\Breakout-Go\Renderer.cpp" />
     <ClCompile Include="..\Breakout-Go\Slider.cpp" />
+    <ClCompile Include="LevelTest.cpp" />
     <ClCompile Include="RendererTest.cpp" />
     <ClCompile Include="SliderTest.cpp" />
     <ClCompile Include="TestDevice.cpp" />

@@ -10,28 +10,25 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace BreakoutWinTest {
+TEST_CLASS(RendererTest) {
+public:
 
-	TEST_CLASS(RendererTest) {
-	public:
-
-		TEST_METHOD(ClearScreen) {
-			TestDevice* device = new TestDevice(true);
-			Renderer* renderer = new Renderer(device);
+	TEST_METHOD(ClearScreen) {
+		TestDevice* device = new TestDevice(true);
+		Renderer* renderer = new Renderer(device);
 		
-			renderer->clearScreen();
+		renderer->clearScreen();
 
-			std::vector<DrawOperationRectangle> drawOpsRect = device->getDrawnRectangles();
-			Assert::AreEqual(1, int(drawOpsRect.size()));
-			Assert::AreEqual(0, drawOpsRect.at(0).x);
-			Assert::AreEqual(0, drawOpsRect.at(0).y);
-			Assert::AreEqual(320, drawOpsRect.at(0).w);
-			Assert::AreEqual(240, drawOpsRect.at(0).h);
-			Assert::AreEqual(0, int(drawOpsRect.at(0).color));
+		std::vector<DrawOperationRectangle> drawOpsRect = device->getDrawnRectangles();
+		Assert::AreEqual(1, int(drawOpsRect.size()));
+		Assert::AreEqual(0, drawOpsRect.at(0).x);
+		Assert::AreEqual(0, drawOpsRect.at(0).y);
+		Assert::AreEqual(320, drawOpsRect.at(0).w);
+		Assert::AreEqual(240, drawOpsRect.at(0).h);
+		Assert::AreEqual(0, int(drawOpsRect.at(0).color));
 
-			delete renderer;
-			delete device;
-		}
+		delete renderer;
+		delete device;
+	}
 
-	};
-}
+};

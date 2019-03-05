@@ -80,5 +80,8 @@
     <ClCompile Include="..\Breakout-Go\Level.cpp">
       <Filter>Quelldateien\Game</Filter>
     </ClCompile>
+    <ClCompile Include="LevelTest.cpp">
+      <Filter>Quelldateien\Tests</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
