@@ -15,28 +15,28 @@ void Renderer::renderRectangle(Rectangle rect, unsigned int color) {
   device->fillScreenRect(rect.positionX, rect.positionY, rect.width, rect.height, color);
 }
 
-void Renderer::renderBorders(Level& level) {
-  renderRectangle(level.getBorderLeftRect(), COLOR_BORDER);
-  renderRectangle(level.getBorderTopRect(), COLOR_BORDER);
-  renderRectangle(level.getBorderRightRect(), COLOR_BORDER);
+void Renderer::renderBorders(Level* level) {
+  renderRectangle(level->getBorderLeftRect(), COLOR_BORDER);
+  renderRectangle(level->getBorderTopRect(), COLOR_BORDER);
+  renderRectangle(level->getBorderRightRect(), COLOR_BORDER);
 }
 
-void Renderer::renderBall(Ball& ball, unsigned int color) {
-  device->fillScreenCircle(int(ball.getPositionX()), int(ball.getPositionY()), int(ball.getRadius()), color); 
+void Renderer::renderBall(Ball* ball, unsigned int color) {
+  device->fillScreenCircle(int(ball->getPositionX()), int(ball->getPositionY()), int(ball->getRadius()), color); 
 }
 
-void Renderer::renderBall(Ball& ball) {
+void Renderer::renderBall(Ball* ball) {
   renderBall(ball, COLOR_BALL);
 }
 
-void Renderer::removeBall(Ball& ball) {
+void Renderer::removeBall(Ball* ball) {
   renderBall(ball, COLOR_BACKGROUND);
 }
 
-void Renderer::removeSlider(Slider& slider) {
-  renderRectangle(slider.toRect(), COLOR_BACKGROUND);
+void Renderer::removeSlider(Slider* slider) {
+  renderRectangle(slider->toRect(), COLOR_BACKGROUND);
 }
 
-void Renderer::renderSlider(Slider& slider) {
-  renderRectangle(slider.toRect(), COLOR_SLIDER);
+void Renderer::renderSlider(Slider* slider) {
+  renderRectangle(slider->toRect(), COLOR_SLIDER);
 }

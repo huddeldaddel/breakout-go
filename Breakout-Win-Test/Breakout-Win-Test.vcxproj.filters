@@ -74,9 +74,6 @@
     <ClCompile Include="..\Breakout-Go\Ball.cpp">
       <Filter>Quelldateien\Game</Filter>
     </ClCompile>
-    <ClCompile Include="..\Breakout-Go\Rectangle.cpp">
-      <Filter>Quelldateien\Game</Filter>
-    </ClCompile>
     <ClCompile Include="..\Breakout-Go\Level.cpp">
       <Filter>Quelldateien\Game</Filter>
     </ClCompile>

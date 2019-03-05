@@ -11,19 +11,19 @@ class Renderer {
   private:
     Device* device;
     void renderRectangle(Rectangle rect, unsigned int color);
-    void renderBall(Ball& ball, unsigned int color);
+    void renderBall(Ball* ball, unsigned int color);
   public:
     Renderer(Device* device);
     
     void clearScreen();
 
-    void renderBall(Ball& ball);
-    void removeBall(Ball& ball);
+    void renderBall(Ball* ball);
+    void removeBall(Ball* ball);
     
-    void renderBorders(Level& level);
+    void renderBorders(Level* level);
 
-    void removeSlider(Slider& slider);
-    void renderSlider(Slider& slider);
+    void removeSlider(Slider* slider);
+    void renderSlider(Slider* slider);
 };
 
 #endif

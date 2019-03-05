@@ -1,16 +1,19 @@
-#include <odroid_go.h>
 #include "Ball.h"
+#include "Controller.h"
+#include "Device.h"
 #include "Level.h"
+#include "OdroidDevice.h"
 #include "Slider.h"
 #include "Renderer.h"
 
 const unsigned long LOOP_DELAY = 1000 / 33;                                                                 // we aim for 30 fps
-const unsigned int HEIGHT = TFT_WIDTH;
-const unsigned int WIDTH = TFT_HEIGHT;
 const int DEFAULT_LIFE_COUNT = 3;
 
-Level currentLevel{};
-Slider slider{currentLevel, WIDTH, HEIGHT};
+Controller* controller = new Controller();
+Device* device = new OdroidDevice();
+Level* currentLevel = new Level(device);
+Slider* slider = new Slider(0, 0, 0, 0, 0);
+controller.resetSlider(slider, currentLevel, device);
 
 int lives = 0;
 bool gameOver = false;
