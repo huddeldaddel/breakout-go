@@ -12,9 +12,6 @@ const unsigned long LOOP_DELAY = 1000 / 33;                                     
 
 OdroidDevice* device = new OdroidDevice();
 Controller* controller = new Controller(device);
-controller->resetSlider(slider, currentLevel, device);
-
-Ball ball{slider, handleDeath};
 
 // Initialization
 void setup() {
@@ -26,7 +23,7 @@ void setup() {
 void loop() {
   device->update();                                    // Refresh button states etc.
 
-  if(controller.getLives() == 0) {
+  if(controller->getLives() == 0) {
     printWelcomeMessage();
     if(GO.BtnStart.isPressed() == 1) {
       controller->startNewGame();
@@ -39,12 +36,12 @@ void loop() {
 }
 
 void printWelcomeMessage() {
-  GO.lcd.setCursor(95, HEIGHT / 2 - 30);
+  GO.lcd.setCursor(95, device->getScreenHeight() / 2 - 30);
   if(controller->isGameOver()) {
     GO.lcd.println("GAME OVER !\n");
   } else {
     GO.lcd.println("BREAKOUT GO\n");
   }
-  GO.lcd.setCursor(95, HEIGHT / 2);
+  GO.lcd.setCursor(95, device->getScreenHeight() / 2);
   GO.lcd.println("PRESS START");
 }
