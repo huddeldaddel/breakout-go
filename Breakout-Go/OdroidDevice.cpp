@@ -50,5 +50,9 @@ bool OdroidDevice::isDirectionRightPressed() const {
 }
 
 void OdroidDevice::sleep(const int millis) const {
-  sleep(millis);
+  delay(millis);
+}
+
+void OdroidDevice::update() {
+  GO.update();
 }

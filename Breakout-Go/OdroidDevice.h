@@ -24,6 +24,7 @@ public:
   bool isDirectionRightPressed() const;
 
   void sleep(const int millis) const;
+  void update();
 };
 
 

@@ -1,3 +1,5 @@
+#include <odroid_go.h>
+
 #include "Ball.h"
 #include "Controller.h"
 #include "Device.h"
@@ -7,17 +9,11 @@
 #include "Renderer.h"
 
 const unsigned long LOOP_DELAY = 1000 / 33;                                                                 // we aim for 30 fps
-const int DEFAULT_LIFE_COUNT = 3;
 
-Controller* controller = new Controller();
-Device* device = new OdroidDevice();
-Level* currentLevel = new Level(device);
-Slider* slider = new Slider(0, 0, 0, 0, 0);
-controller.resetSlider(slider, currentLevel, device);
+OdroidDevice* device = new OdroidDevice();
+Controller* controller = new Controller(device);
+controller->resetSlider(slider, currentLevel, device);
 
-int lives = 0;
-bool gameOver = false;
-Renderer renderer{};
 Ball ball{slider, handleDeath};
 
 // Initialization
@@ -26,77 +22,29 @@ void setup() {
   GO.lcd.setTextSize(2);
 }
 
-void handleDeath() {
-  lives -= 1;
-  if (lives > 0) {
-    renderer.removeSlider(slider);
-    
-    slider.reset(currentLevel, WIDTH, HEIGHT);
-    ball.reset();
-    ball.updatePositionOnSlider(slider);
-
-    renderer.renderSlider(slider);
-    renderer.renderBall(ball);
-  } else {
-    gameOver = true;
-  }
-}
-
 // Main loop
 void loop() {
-  GO.update();                                    // Refresh button states etc.
+  device->update();                                    // Refresh button states etc.
 
-  if(lives == 0) {
+  if(controller.getLives() == 0) {
     printWelcomeMessage();
     if(GO.BtnStart.isPressed() == 1) {
-      startNewGame();
+      controller->startNewGame();
     }  
   } else {  
-    bool ballStarted = false;
-    if(!ball.isMoving() && ball.shouldStart()) {
-      ball.start();
-      ballStarted = true;
-    }
-  
-    renderer.removeBall(ball);
-    ball.updatePosition(currentLevel, slider, WIDTH, HEIGHT);
-    renderer.renderBall(ball);
-  
-    if(slider.isMoving()) {
-      renderer.removeSlider(slider);
-      slider.updatePosition(currentLevel, WIDTH);
-      if(!ball.isMoving()) {
-        renderer.removeBall(ball);
-        ball.updatePositionOnSlider(slider);
-        renderer.renderBall(ball);
-      }
-    }
-    
-    if(ballStarted || slider.isMoving()) {
-      renderer.renderSlider(slider);
-    }
+    controller->updateGame();
   }   
   
-  delay(LOOP_DELAY);
+   device->sleep(LOOP_DELAY);
 }
 
 void printWelcomeMessage() {
   GO.lcd.setCursor(95, HEIGHT / 2 - 30);
-  if(gameOver) {
+  if(controller->isGameOver()) {
     GO.lcd.println("GAME OVER !\n");
   } else {
     GO.lcd.println("BREAKOUT GO\n");
   }
   GO.lcd.setCursor(95, HEIGHT / 2);
   GO.lcd.println("PRESS START");
-}
-
-void startNewGame() {
-  lives = DEFAULT_LIFE_COUNT;
-  gameOver = false;
-
-  renderer.clearScreen();
-  renderer.renderBorders(currentLevel);
-  renderer.renderSlider(slider);
-  renderer.renderBall(ball);
 }

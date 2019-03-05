@@ -1,8 +1,6 @@
 #ifndef _BALL_
 #define _BALL_
 
-#include "Slider.h"
-
 class Ball {
   private:
     bool moving;
@@ -11,15 +9,26 @@ class Ball {
     int radius;
     float speedX;
     float speedY;
-    void(&onDeath)() ; 
   public:
-    Ball(const float x, const float y, void(&onDeath)());
+    Ball(const float x, const float y, const int r);
 
-    float getPositionX();
-    float getPositionY();
-    int getRadius();
-    float getSpeedX();
-    float getSpeedY();
+    float getPositionX() const;
+	void setPositionX(float x);
+
+    float getPositionY() const;
+	void setPositionY(float y);
+
+    int getRadius() const;
+	void setRadius(int r);
+
+    float getSpeedX() const;
+	void setSpeedX(float s);
+
+    float getSpeedY() const;
+	void setSpeedY(float s);
+
+	bool isMoving() const;
+	void setMoving(bool m);
 };
 
 #endif

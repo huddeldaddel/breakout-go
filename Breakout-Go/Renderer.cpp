@@ -11,7 +11,7 @@ void Renderer::clearScreen() {
   device->fillScreenRect(0, 0, device->getScreenWidth(), device->getScreenHeight(), COLOR_BACKGROUND);
 }
 
-void Renderer::renderRectangle(Rectangle rect, unsigned int color) {
+void Renderer::renderRectangle(Rectangle rect, const unsigned int color) {
   device->fillScreenRect(rect.positionX, rect.positionY, rect.width, rect.height, color);
 }
 
@@ -21,7 +21,7 @@ void Renderer::renderBorders(Level* level) {
   renderRectangle(level->getBorderRightRect(), COLOR_BORDER);
 }
 
-void Renderer::renderBall(Ball* ball, unsigned int color) {
+void Renderer::renderBall(Ball* ball, const unsigned int color) {
   device->fillScreenCircle(int(ball->getPositionX()), int(ball->getPositionY()), int(ball->getRadius()), color); 
 }
 

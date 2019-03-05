@@ -10,8 +10,8 @@
 class Renderer {
   private:
     Device* device;
-    void renderRectangle(Rectangle rect, unsigned int color);
-    void renderBall(Ball* ball, unsigned int color);
+    void renderRectangle(Rectangle rect, const unsigned int color);
+    void renderBall(Ball* ball, const unsigned int color);
   public:
     Renderer(Device* device);
     

@@ -1,12 +1,44 @@
 #ifndef _CONTROLLER_
 #define _CONTROLLER_
 
+#include "Ball.h"
+#include "Device.h"
+#include "Level.h"
+#include "Renderer.h"
+#include "Slider.h"
+
 class Controller {
-  private:
-  public:
-    Controller();
-    ~Controller();
-    void resetSlider(Slider* slider, Level* level, Device* device) const;
-}
+	private:
+		Ball* ball;
+		Device* device;
+		Level* level;
+		Slider* slider;
+		Renderer* renderer;
+
+		int lives;
+		bool gameOver;
+
+		void handleDeath();
+		bool isSliderMoving();
+
+		void resetBall();
+		void resetSlider();
+
+		void startBall();
+
+		void updateBallPosition();
+		void updateBallPositionOnSlider();
+		void updateSliderPosition();
+	public:
+		Controller(Device* device);
+		~Controller();
+
+		int getLives() const;
+		Slider* getSlider();
+		bool isGameOver() const;
+
+		void startNewGame();
+    void updateGame();
+};
 
 #endif

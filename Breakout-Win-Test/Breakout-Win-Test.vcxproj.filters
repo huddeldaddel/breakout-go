@@ -54,6 +54,9 @@
     <ClInclude Include="DrawOperationCircle.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="..\Breakout-Go\Controller.h">
+      <Filter>Headerdateien\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SliderTest.cpp">
@@ -79,6 +82,12 @@
     </ClCompile>
     <ClCompile Include="LevelTest.cpp">
       <Filter>Quelldateien\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="ControllerTest.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Breakout-Go\Controller.cpp">
+      <Filter>Quelldateien\Game</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
