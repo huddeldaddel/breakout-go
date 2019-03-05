@@ -1,9 +1,13 @@
 #ifndef _WINDOWS_DEVICE_
 #define _WINDOWS_DEVICE_
 
+#include <windows.h>
+
 #include "../../Breakout-Go/Device.h"
 
 class WindowsDevice : public Device {
+private:
+	COLORREF translateColor(const unsigned int color) const;
 public:
 	WindowsDevice();
 

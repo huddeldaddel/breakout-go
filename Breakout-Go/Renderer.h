@@ -2,15 +2,18 @@
 #define _RENDERER_
 
 #include "Ball.h"
+#include "Device.h"
+#include "Level.h"
 #include "Rectangle.h"
 #include "Slider.h"
 
 class Renderer {
   private:
+    Device* device;
     void renderRectangle(Rectangle rect, unsigned int color);
     void renderBall(Ball& ball, unsigned int color);
   public:
-    Renderer();
+    Renderer(Device* device);
     
     void clearScreen();
 

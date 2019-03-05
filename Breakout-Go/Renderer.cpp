@@ -1,21 +1,18 @@
-#include <odroid_go.h>
-#include "Rectangle.h"
 #include "Renderer.h"
 
-const unsigned int COLOR_BACKGROUND = TFT_BLACK;
-const unsigned int COLOR_BALL = TFT_WHITE;
-const unsigned int COLOR_BORDER = TFT_LIGHTGREY;
-const unsigned int COLOR_SLIDER = TFT_LIGHTGREY;
+const unsigned int COLOR_BACKGROUND = 0x0000; /*   0,   0,   0 */
+const unsigned int COLOR_BALL = 0xFFFF;		  /* 255, 255, 255 */	
+const unsigned int COLOR_BORDER = 0xC618;	  /* 192, 192, 192 */
+const unsigned int COLOR_SLIDER = 0x7BEF;	  /* 128, 128, 128 */ 
 
-Renderer::Renderer() { 
-}
+Renderer::Renderer(Device* device) : device{device} { }
 
 void Renderer::clearScreen() {
-  GO.lcd.fillScreen(COLOR_BACKGROUND);
+  device->fillScreenRect(0, 0, device->getScreenWidth(), device->getScreenHeight(), COLOR_BACKGROUND);
 }
 
 void Renderer::renderRectangle(Rectangle rect, unsigned int color) {
-  GO.lcd.fillRect(rect.positionX, rect.positionY, rect.width, rect.height, color);
+  device->fillScreenRect(rect.positionX, rect.positionY, rect.width, rect.height, color);
 }
 
 void Renderer::renderBorders(Level& level) {
@@ -25,7 +22,7 @@ void Renderer::renderBorders(Level& level) {
 }
 
 void Renderer::renderBall(Ball& ball, unsigned int color) {
-  GO.lcd.fillCircle(ball.getPositionX(), ball.getPositionY(), ball.getRadius(), color); 
+  device->fillScreenCircle(int(ball.getPositionX()), int(ball.getPositionY()), int(ball.getRadius()), color); 
 }
 
 void Renderer::renderBall(Ball& ball) {

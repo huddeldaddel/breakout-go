@@ -1,59 +1,55 @@
-#include <odroid_go.h>
 #include "Rectangle.h"
 #include "Slider.h"
 
-Slider::Slider(Level& level, unsigned int screenWidth, unsigned int screenHeight) {
-  reset(level, screenWidth, screenHeight);
+Slider::Slider(const float positionX, const float positionY, const int width, const int height, const float speed) : positionX{positionX}, positionY{positionY}, width{width}, height{height}, speed{speed} {
+  
 }
 
-Rectangle Slider::toRect() {
+float Slider::getPositionX() const {
+  return positionX;
+}
+
+void Slider::setPositionX(const float x) {
+  positionX = x;
+}
+
+float Slider::getPositionY() const {
+  return positionY;
+}
+
+void Slider::setPositionY(const float y) {
+  positionY = y;
+}
+
+int Slider::getWidth() const {
+  return width;
+}
+
+void Slider::setWidth(const int w) {
+  width = w;
+}
+
+int Slider::getHeight() const {
+  return height;
+}
+
+void Slider::setHeight(const int h) {
+  height = h;
+}
+
+float Slider::getSpeed() const {
+  return speed;
+}
+
+void Slider::setSpeed(const float s) {
+  speed = s;
+}
+
+Rectangle Slider::toRect() const {
   Rectangle result{};
   result.positionX = int(positionX);
   result.positionY = int(positionY);
   result.width = width;
   result.height = height;
   return result;
-}
-
-bool Slider::isMoving() {
-  return GO.JOY_X.isAxisPressed() != 0;
-}
-
-float Slider::getPositionX() {
-  return positionX;
-}
-
-float Slider::getPositionY() {
-  return positionY;
-}
-
-int Slider::getWidth() {
-  return width;
-}
-
-int Slider::getHeight() {
-  return height;
-}
-
-float Slider::getSpeed() {
-  return speed;
-}
-
-void Slider::reset(Level& level, unsigned int screenWidth, unsigned int screenHeight) {
-  width = 30;
-  height = 3;
-  speed = 5.5;
-  positionX = (screenWidth - level.getBorderLeft() - level.getBorderRight() - 30) / 2; 
-  positionY = screenHeight -10;
-}
-
-void Slider::updatePosition(Level& level, int screenWidth) {
-  if(2 == GO.JOY_X.isAxisPressed()) 
-    positionX -= speed;
-  if(1 == GO.JOY_X.isAxisPressed()) 
-    positionX += speed;
-  if(positionX < float(level.getBorderLeft()))
-    positionX = float(level.getBorderLeft());
-  if(positionX > float(screenWidth - level.getBorderRight() - width))
-    positionX = float(screenWidth - level.getBorderRight() - width);
 }

@@ -1,8 +1,7 @@
-#include <odroid_go.h>
 #include "Level.h"
 
 // Currently just some default values for an empty first level
-Level::Level() : number{1}, borderLeft{5}, borderTop{5}, borderRight{5} {
+Level::Level(Device* d) : device{d}, number{1}, borderLeft{5}, borderTop{5}, borderRight{5} {
 }
 
 int Level::getNumber() {
@@ -22,13 +21,13 @@ int Level::getBorderRight() {
 }
 
 Rectangle Level::getBorderLeftRect() {
-  return Rectangle{0, 0, borderLeft, TFT_WIDTH};
+  return Rectangle{0, 0, borderLeft, device->getScreenHeight()};
 }
 
 Rectangle Level::getBorderTopRect() {
-  return Rectangle{0, 0, TFT_HEIGHT, borderTop};
+  return Rectangle{0, 0, device->getScreenWidth(), borderTop};
 }
 
 Rectangle Level::getBorderRightRect() {
-  return Rectangle{TFT_HEIGHT - borderRight, 0, borderRight, TFT_WIDTH};   
+  return Rectangle{device->getScreenWidth() - borderRight, 0, borderRight, device->getScreenHeight()};   
 }

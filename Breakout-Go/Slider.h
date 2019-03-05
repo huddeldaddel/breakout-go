@@ -1,7 +1,7 @@
 #ifndef _SLIDER_
 #define _SLIDER_
 
-#include "Level.h"
+#include "Rectangle.h"
 
 class Slider {
   private:
@@ -11,18 +11,24 @@ class Slider {
     int height;
     float speed;  
   public:
-    Slider(Level& level, unsigned int screenWidth, unsigned int screenHeight);
+    Slider(const float positionX, const float positionY, const int width, const int height, const float speed);
     
-    float getPositionX();
-    float getPositionY();
-    int getWidth();
-    int getHeight();
-    float getSpeed();
+    float getPositionX() const;
+    void setPositionX(const float x);
+    
+    float getPositionY() const;
+    void setPositionY(const float y);
+    
+    int getWidth() const;
+    void setWidth(const int w);
+    
+    int getHeight() const;
+    void setHeight(const int h);
+    
+    float getSpeed() const;
+    void setSpeed(const float s);
 
-    Rectangle toRect();
-    bool isMoving();
-    void reset(Level& level, unsigned int screenWidth, unsigned int screenHeight);
-    void updatePosition(Level& level, int screenWidth);
+    Rectangle toRect() const;
 };
 
 #endif

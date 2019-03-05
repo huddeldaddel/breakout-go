@@ -3,7 +3,8 @@
 
 class Device {
   public:
-    virtual void fillScreenRect(const int x, const int y, const int w, const int h, const unsigned int color) const = 0;
+    virtual void fillScreenRect(const int x, const int y, const int w, const int h, const unsigned int color) = 0;
+	virtual void fillScreenCircle(const int x, const int y, const int r, const unsigned int color) = 0;
     
     virtual int getScreenWidth() const = 0;
     virtual int getScreenHeight() const = 0;

@@ -1,16 +1,18 @@
 #ifndef _LEVEL_
 #define _LEVEL_
 
+#include "Device.h"
 #include "Rectangle.h"
 
 class Level {
   private:
+    Device* device;
     int number;
     int borderLeft;
     int borderTop;
     int borderRight;
   public:
-    Level();
+    Level(Device* d);
     
     int getNumber();
     int getBorderLeft();

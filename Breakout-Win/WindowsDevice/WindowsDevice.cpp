@@ -7,15 +7,21 @@ WindowsDevice::WindowsDevice() {
 }
 
 void WindowsDevice::fillScreenRect(const int x, const int y, const int w, const int h, const unsigned int color) const {
-
+	HWND console_handle = GetConsoleWindow();
+	HDC device_context = GetDC(console_handle);
+	RECT rect = { x, y, x + w, y + h };
+	HBRUSH brush = CreateSolidBrush(translateColor(color));
+	FillRect(device_context, &rect, brush);
+	DeleteObject(brush);
+	ReleaseDC(console_handle, device_context);
 }
 
 int WindowsDevice::getScreenWidth() const {
-	return 0;
+	return 320;
 }
 
 int WindowsDevice::getScreenHeight() const {
-	return 0;
+	return 240;
 }
 
 bool WindowsDevice::isButtonAPressed() const {
@@ -44,4 +50,13 @@ bool WindowsDevice::isDirectionRightPressed() const {
 
 void WindowsDevice::sleep(const int millis) const {
 	Sleep(millis);
+}
+
+COLORREF WindowsDevice::translateColor(const unsigned int color) const {
+	switch (color) {
+	case 0x0000:							// black 
+		return RGB(0, 0, 0);
+	default:								// yellow
+		return RGB(255, 255, 0);
+	}
 }
