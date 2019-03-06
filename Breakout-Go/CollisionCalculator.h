@@ -16,6 +16,7 @@ class CollisionCalculator {
     
     int getLeftWallCollisionOverlap(); 
     int getRightWallCollisionOverlap(); 
+	int getTopWallCollisionOverlap();
 };
 
 #endif

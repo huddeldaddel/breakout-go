@@ -96,4 +96,46 @@ public:
 		delete ball;
 	}
 
+	TEST_METHOD(getTopWallCollisionOverlapTouched) {
+		Ball* ball = new Ball(0, 8, 3);
+		Device* device = new TestDevice(false);
+		Level* level = new Level(device);
+		CollisionCalculator* calc = new CollisionCalculator(ball, device, level);
+
+		Assert::AreEqual(0, calc->getTopWallCollisionOverlap());
+
+		delete calc;
+		delete level;
+		delete device;
+		delete ball;
+	}
+
+	TEST_METHOD(getTopWallCollisionOverlapNotTouched) {
+		Ball* ball = new Ball(0, 9, 3);
+		Device* device = new TestDevice(false);
+		Level* level = new Level(device);
+		CollisionCalculator* calc = new CollisionCalculator(ball, device, level);
+
+		Assert::AreEqual(-1, calc->getTopWallCollisionOverlap());
+
+		delete calc;
+		delete level;
+		delete device;
+		delete ball;
+	}
+
+	TEST_METHOD(getTopWallCollisionOverlapFullyMerged) {
+		Ball* ball = new Ball(0, 0, 3);
+		Device* device = new TestDevice(false);
+		Level* level = new Level(device);
+		CollisionCalculator* calc = new CollisionCalculator(ball, device, level);
+
+		Assert::AreEqual(8, calc->getTopWallCollisionOverlap());
+
+		delete calc;
+		delete level;
+		delete device;
+		delete ball;
+	}
+
 };

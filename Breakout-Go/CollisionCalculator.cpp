@@ -15,3 +15,7 @@ int CollisionCalculator::getRightWallCollisionOverlap() {
 	const float ballPlusRadius = ball->getPositionX() + ball->getRadius();
 	return -1 * int(firstPixelOfWall -1 - ballPlusRadius);
 }
+
+int CollisionCalculator::getTopWallCollisionOverlap() {
+	return int(level->getBorderTop() - (ball->getPositionY() - ball->getRadius()));
+}

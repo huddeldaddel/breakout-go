@@ -134,9 +134,8 @@ void Controller::updateBallPosition() {
 		ball->setSpeedX(ball->getSpeedX() * -1);
 	}
 
-	if ((ball->getSpeedY() < 0) && (ball->getPositionY() - ball->getRadius() <= level->getBorderTop())) {                     
-		// bounce off top
-		ball->setPositionY(ball->getPositionY() + 2 * (level->getBorderTop() - (ball->getPositionY() - ball->getRadius())));
+	if (calculator.getTopWallCollisionOverlap() >= 0) {
+		ball->setPositionY(ball->getPositionY() + 2 * calculator.getTopWallCollisionOverlap());
 		ball->setSpeedY(ball->getSpeedY() * -1);
 	} else if ((ball->getSpeedY() > 0) &&                                                              
 		(ball->getPositionY() + ball->getRadius() >= slider->getPositionY() + slider->getHeight()) &&
