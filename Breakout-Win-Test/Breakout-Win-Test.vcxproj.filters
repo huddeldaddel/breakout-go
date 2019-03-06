@@ -60,6 +60,12 @@
     <ClInclude Include="..\Breakout-Go\CollisionCalculator.h">
       <Filter>Headerdateien\Game</Filter>
     </ClInclude>
+    <ClInclude Include="..\Breakout-Go\Point.h">
+      <Filter>Headerdateien\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Breakout-Go\Line.h">
+      <Filter>Headerdateien\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SliderTest.cpp">
@@ -97,6 +103,12 @@
     </ClCompile>
     <ClCompile Include="CollisionCalculatorTest.cpp">
       <Filter>Quelldateien\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Breakout-Go\Point.cpp">
+      <Filter>Quelldateien\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Breakout-Go\Line.cpp">
+      <Filter>Quelldateien\Game</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

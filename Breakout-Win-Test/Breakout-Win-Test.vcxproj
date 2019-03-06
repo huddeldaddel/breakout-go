@@ -157,6 +157,8 @@
     <ClInclude Include="..\Breakout-Go\Controller.h" />
     <ClInclude Include="..\Breakout-Go\Device.h" />
     <ClInclude Include="..\Breakout-Go\Level.h" />
+    <ClInclude Include="..\Breakout-Go\Line.h" />
+    <ClInclude Include="..\Breakout-Go\Point.h" />
     <ClInclude Include="..\Breakout-Go\Rectangle.h" />
     <ClInclude Include="..\Breakout-Go\Renderer.h" />
     <ClInclude Include="..\Breakout-Go\Slider.h" />
@@ -170,6 +172,8 @@
     <ClCompile Include="..\Breakout-Go\CollisionCalculator.cpp" />
     <ClCompile Include="..\Breakout-Go\Controller.cpp" />
     <ClCompile Include="..\Breakout-Go\Level.cpp" />
+    <ClCompile Include="..\Breakout-Go\Line.cpp" />
+    <ClCompile Include="..\Breakout-Go\Point.cpp" />
     <ClCompile Include="..\Breakout-Go\Renderer.cpp" />
     <ClCompile Include="..\Breakout-Go\Slider.cpp" />
     <ClCompile Include="CollisionCalculatorTest.cpp" />

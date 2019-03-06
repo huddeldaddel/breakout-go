@@ -4,6 +4,7 @@
 #include "../Breakout-Go/CollisionCalculator.h"
 #include "../Breakout-Go/Device.h"
 #include "../Breakout-Go/Level.h"
+#include "../Breakout-Go/Line.h"
 
 #include "TestDevice.h"
 
@@ -131,6 +132,27 @@ public:
 		CollisionCalculator* calc = new CollisionCalculator(ball, device, level);
 
 		Assert::AreEqual(8, calc->getTopWallCollisionOverlap());
+
+		delete calc;
+		delete level;
+		delete device;
+		delete ball;
+	}
+
+	TEST_METHOD(getIntersectionOfLines) {
+		Ball* ball = new Ball(0, 0, 3);
+		Device* device = new TestDevice(false);
+		Level* level = new Level(device);
+		CollisionCalculator* calc = new CollisionCalculator(ball, device, level);
+
+		Line leftBorder{ 4, 0, 4, 239 };
+		Line ballVector{ 8, 20, 2, 20 };
+
+		Point* intersection = calc->getIntersectionOfLines(leftBorder, ballVector);
+		Assert::IsNotNull(intersection);
+		Assert::AreEqual(4, int(intersection->getX()));
+		Assert::AreEqual(20, int(intersection->getY()));
+		delete intersection;
 
 		delete calc;
 		delete level;
