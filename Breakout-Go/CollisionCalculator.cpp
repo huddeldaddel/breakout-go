@@ -11,6 +11,7 @@ int CollisionCalculator::getLeftWallCollisionOverlap() {
 }
 
 int CollisionCalculator::getRightWallCollisionOverlap() {
-	// (ball->getPositionX() + ball->getRadius() >= (device->getScreenWidth() - level->getBorderRight()))
-	return 0;
+	const int firstPixelOfWall = device->getScreenWidth() - level->getBorderRight();
+	const float ballPlusRadius = ball->getPositionX() + ball->getRadius();
+	return -1 * int(firstPixelOfWall -1 - ballPlusRadius);
 }

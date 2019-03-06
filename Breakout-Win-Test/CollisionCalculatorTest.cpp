@@ -54,4 +54,46 @@ public:
 		delete ball;
 	}
 
+	TEST_METHOD(getRightWallCollisionOverlapTouched) {
+		Ball* ball = new Ball(311, 0, 3);
+		Device* device = new TestDevice(false);
+		Level* level = new Level(device);
+		CollisionCalculator* calc = new CollisionCalculator(ball, device, level);
+
+		Assert::AreEqual(0, calc->getRightWallCollisionOverlap());
+
+		delete calc;
+		delete level;
+		delete device;
+		delete ball;
+	}
+
+	TEST_METHOD(getRightWallCollisionOverlapNotTouched) {
+		Ball* ball = new Ball(310, 0, 3);
+		Device* device = new TestDevice(false);
+		Level* level = new Level(device);
+		CollisionCalculator* calc = new CollisionCalculator(ball, device, level);
+
+		Assert::AreEqual(-1, calc->getRightWallCollisionOverlap());
+
+		delete calc;
+		delete level;
+		delete device;
+		delete ball;
+	}
+
+	TEST_METHOD(getRightWallCollisionOverlapFullyMerged) {
+		Ball* ball = new Ball(319, 0, 3);
+		Device* device = new TestDevice(false);
+		Level* level = new Level(device);
+		CollisionCalculator* calc = new CollisionCalculator(ball, device, level);
+
+		Assert::AreEqual(8, calc->getRightWallCollisionOverlap());
+
+		delete calc;
+		delete level;
+		delete device;
+		delete ball;
+	}
+
 };
