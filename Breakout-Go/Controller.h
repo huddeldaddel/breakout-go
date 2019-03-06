@@ -2,6 +2,7 @@
 #define _CONTROLLER_
 
 #include "Ball.h"
+#include "CollisionCalculator.h"
 #include "Device.h"
 #include "Level.h"
 #include "Renderer.h"

@@ -153,6 +153,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Breakout-Go\Ball.h" />
+    <ClInclude Include="..\Breakout-Go\CollisionCalculator.h" />
     <ClInclude Include="..\Breakout-Go\Controller.h" />
     <ClInclude Include="..\Breakout-Go\Device.h" />
     <ClInclude Include="..\Breakout-Go\Level.h" />
@@ -166,10 +167,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Breakout-Go\Ball.cpp" />
+    <ClCompile Include="..\Breakout-Go\CollisionCalculator.cpp" />
     <ClCompile Include="..\Breakout-Go\Controller.cpp" />
     <ClCompile Include="..\Breakout-Go\Level.cpp" />
     <ClCompile Include="..\Breakout-Go\Renderer.cpp" />
     <ClCompile Include="..\Breakout-Go\Slider.cpp" />
+    <ClCompile Include="CollisionCalculatorTest.cpp" />
     <ClCompile Include="ControllerTest.cpp" />
     <ClCompile Include="LevelTest.cpp" />
     <ClCompile Include="RendererTest.cpp" />

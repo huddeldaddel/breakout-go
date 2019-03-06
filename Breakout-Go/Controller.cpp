@@ -125,13 +125,14 @@ void Controller::updateBallPosition() {
 	ball->setPositionX(ball->getPositionX() + ball->getSpeedX());
 	ball->setPositionY(ball->getPositionY() + ball->getSpeedY());
 
+	CollisionCalculator calculator{ ball, device, level };
 	if (ball->getPositionX() + ball->getRadius() >= (device->getScreenWidth() - level->getBorderRight())) {                     
 		// bounce off right
 		ball->setPositionX(ball->getPositionX() - 2 * ((ball->getPositionX() + ball->getRadius()) - (device->getScreenWidth() - level->getBorderRight())));
 		ball->setSpeedX(ball->getSpeedX() * -1);
-	} else if (ball->getPositionX() - ball->getRadius() <= level->getBorderLeft()) {                              
+	} else if(calculator.getLeftWallCollisionOverlap() >= 0) {
 		// bounce off left
-		ball->setPositionX(ball->getPositionX() - 2 * ((ball->getPositionX() - ball->getRadius()) - (level->getBorderLeft())));
+		ball->setPositionX(ball->getPositionX() + 2 * calculator.getLeftWallCollisionOverlap());
 		ball->setSpeedX(ball->getSpeedX() * -1);
 	}
 
