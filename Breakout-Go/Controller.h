@@ -33,6 +33,7 @@ class Controller {
 		Controller(Device* device);
 		~Controller();
 
+		Ball* getBall();
 		int getLives() const;
 		Slider* getSlider();
 		bool isGameOver() const;

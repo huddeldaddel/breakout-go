@@ -9,8 +9,6 @@ Controller::Controller(Device* device) : device{ device } {
 	level = new Level(device);
 	slider = new Slider(0, 0, 0, 0, 0);
 	ball = new Ball(0, 0, DEFAULT_BALL_RADIUS);
-	
-	resetSlider();
 
 	lives = 0;
 	gameOver = false;
@@ -21,6 +19,10 @@ Controller::~Controller() {
 	delete slider;
 	delete level;
 	delete renderer;
+}
+
+Ball* Controller::getBall() {
+	return ball;
 }
 
 int Controller::getLives() const {
@@ -39,6 +41,9 @@ void Controller::startNewGame() {
 	lives = DEFAULT_LIFE_COUNT;
 	gameOver = false;
 
+	resetSlider();
+	updateBallPositionOnSlider();
+
 	renderer->clearScreen();
 	renderer->renderBorders(level);
 	renderer->renderSlider(slider);
@@ -46,10 +51,10 @@ void Controller::startNewGame() {
 }
 
 void Controller::updateGame() {
-    bool ballStarted = false;
+	bool ballStarted = false;
     if(!ball->isMoving() && (device->isButtonAPressed() || device->isButtonBPressed())) {
-      startBall();
-      ballStarted = true;
+		startBall();
+		ballStarted = true;
     }
   
     renderer->removeBall(ball);
@@ -57,18 +62,18 @@ void Controller::updateGame() {
     renderer->renderBall(ball);
   
     if(isSliderMoving()) {
-      renderer->removeSlider(slider);
-      updateSliderPosition();
-      if(!ball->isMoving()) {
-        renderer->removeBall(ball);
-        updateBallPositionOnSlider();
-        renderer->renderBall(ball);
-      }
+		renderer->removeSlider(slider);
+		updateSliderPosition();
+		if(!ball->isMoving()) {
+			renderer->removeBall(ball);
+			updateBallPositionOnSlider();
+			renderer->renderBall(ball);
+		}
     }
     
-    if(ballStarted || isSliderMoving()) {
-        renderer->renderSlider(slider);
-    }
+	if (ballStarted || isSliderMoving()) {
+		renderer->renderSlider(slider);
+	}
 }
 
 void Controller::startBall() {

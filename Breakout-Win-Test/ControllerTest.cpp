@@ -10,14 +10,19 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 TEST_CLASS(ControllerTest) {
 public:
 
-	TEST_METHOD(ConstructToRect) {
+	TEST_METHOD(GameStart) {
 		Device* device = new TestDevice(false);
 		Controller* controller = new Controller(device);
+		
+		controller->startNewGame();
 		
 		Assert::AreEqual(140, int(controller->getSlider()->getPositionX()));
 		Assert::AreEqual(230, int(controller->getSlider()->getPositionY()));
 		Assert::AreEqual(30, int(controller->getSlider()->getWidth()));
 		Assert::AreEqual(3, int(controller->getSlider()->getHeight()));
+
+		Assert::AreEqual(155, int(controller->getBall()->getPositionX()));
+		Assert::AreEqual(227, int(controller->getBall()->getPositionY()));
 
 		delete controller;
 		delete device;
