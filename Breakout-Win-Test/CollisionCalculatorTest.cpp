@@ -160,4 +160,22 @@ public:
 		delete ball;
 	}
 
+	TEST_METHOD(getDistanceToPoint) {
+		Ball* ball = new Ball(0, 0, 3);
+		Device* device = new TestDevice(false);
+		Level* level = new Level(device);
+		CollisionCalculator* calc = new CollisionCalculator(ball, device, level);
+		Line line{ 0, 0, 10, 10 };
+		Point* intersection = new Point(4, 4);
+		
+		float distance = calc->getDistanceToPoint(line, intersection);
+		Assert::AreEqual(5.65f, distance, 0.01f);
+		
+		delete intersection;
+		delete calc;
+		delete level;
+		delete device;
+		delete ball;
+	}
+
 };

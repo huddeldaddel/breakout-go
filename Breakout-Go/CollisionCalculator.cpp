@@ -6,6 +6,20 @@ CollisionCalculator::CollisionCalculator(Ball* b, Device* d, Level* l) : ball{ b
 CollisionCalculator::~CollisionCalculator() {
 }
     
+float CollisionCalculator::getDistanceToPoint(Line& line, Point* point) {
+#ifdef _DEBUG	
+	// We use functions from standard library on Windows
+	float a = std::fabsf(line.getX1() - point->getX());
+	float b = std::fabsf(line.getY1() - point->getY());
+	return std::sqrtf(a * a + b * b);
+#else			
+	// We use functions from arduino library on the Odroid-Go
+	float a = abs(line.getX1() - point->getX());
+	float b = abs(line.getY1() - point->getY());
+	return sqrt(a * a + b * b);
+#endif
+}
+
 Point* CollisionCalculator::getIntersectionOfLines(Line& line1, Line& line2) {
 	float a = ((line2.getX2() - line2.getX1()) * (line1.getY1() - line2.getY1()) - (line2.getY2() - line2.getY1()) * (line1.getX1() - line2.getX1())) / ((line2.getY2() - line2.getY1()) * (line1.getX2() - line1.getX1()) - (line2.getX2() - line2.getX1()) * (line1.getY2() - line1.getY1()));
 	float b = ((line1.getX2() - line1.getX1()) * (line1.getY1() - line2.getY1()) - (line1.getY2() - line1.getY1()) * (line1.getX1() - line2.getX1())) / ((line2.getY2() - line2.getY1()) * (line1.getX2() - line1.getX1()) - (line2.getX2() - line2.getX1()) * (line1.getY2() - line1.getY1()));

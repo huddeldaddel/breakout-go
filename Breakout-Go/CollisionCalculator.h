@@ -1,6 +1,11 @@
 #ifndef _COLLISION_CALCULATOR_
 #define _COLLISION_CALCULATOR_
 
+#ifndef _DEBUG
+	// On the Odroid we need that import for various mathematical routines
+	#include <odroid_go.h>
+#endif
+
 #include <vector>
 
 #include "Ball.h"
@@ -16,12 +21,11 @@ class CollisionCalculator {
     Ball* ball;
     Device* device;
     Level* level;
-
-	
   public:
     CollisionCalculator(Ball* b, Device* d, Level* l);
     ~CollisionCalculator();
     
+	float getDistanceToPoint(Line& line, Point* point);
 	Point* getIntersectionOfLines(Line& line1, Line& line2);
 
     int getLeftWallCollisionOverlap(); 
