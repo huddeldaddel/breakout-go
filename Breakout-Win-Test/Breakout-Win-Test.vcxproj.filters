@@ -113,5 +113,8 @@
     <ClCompile Include="LineTest.cpp">
       <Filter>Quelldateien\Tests</Filter>
     </ClCompile>
+    <ClCompile Include="..\Breakout-Go\Rectangle.cpp">
+      <Filter>Quelldateien\Game</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

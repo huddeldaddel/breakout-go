@@ -1,55 +1,49 @@
 #include "Rectangle.h"
 #include "Slider.h"
 
-Slider::Slider(const float positionX, const float positionY, const int width, const int height, const float speed) : positionX{positionX}, positionY{positionY}, width{width}, height{height}, speed{speed} {
-  
+Slider::Slider(const float positionX, const float positionY, const int width, const int height, const float speed) : positionX{positionX}, positionY{positionY}, width{width}, height{height}, speed{speed} {  
 }
 
 float Slider::getPositionX() const {
-  return positionX;
+	return positionX;
 }
 
 void Slider::setPositionX(const float x) {
-  positionX = x;
+	positionX = x;
 }
 
 float Slider::getPositionY() const {
-  return positionY;
+	return positionY;
 }
 
 void Slider::setPositionY(const float y) {
-  positionY = y;
+	positionY = y;
 }
 
 int Slider::getWidth() const {
-  return width;
+	return width;
 }
 
 void Slider::setWidth(const int w) {
-  width = w;
+	width = w;
 }
 
 int Slider::getHeight() const {
-  return height;
+	return height;
 }
 
 void Slider::setHeight(const int h) {
-  height = h;
+	height = h;
 }
 
 float Slider::getSpeed() const {
-  return speed;
+	return speed;
 }
 
 void Slider::setSpeed(const float s) {
-  speed = s;
+	speed = s;
 }
 
-Rectangle Slider::toRect() const {
-  Rectangle result{};
-  result.positionX = int(positionX);
-  result.positionY = int(positionY);
-  result.width = width;
-  result.height = height;
-  return result;
+Rectangle* Slider::toRect() const {
+	return new Rectangle(int(positionX), int(positionY), width, height);
 }

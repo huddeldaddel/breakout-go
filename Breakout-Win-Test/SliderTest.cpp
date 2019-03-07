@@ -10,26 +10,22 @@ public:
 		
 	TEST_METHOD(ConstructToRect) {
 		Slider* slider = new Slider(23, 55, 10, 5, 0);
-		Rectangle rect = slider->toRect();
-			
-		Assert::AreEqual(23, rect.positionX);
-		Assert::AreEqual(55, rect.positionY);
-		Assert::AreEqual(10, rect.width);
-		Assert::AreEqual(5, rect.height);
-
+		Rectangle* rect = slider->toRect();
+		
+		Assert::IsTrue(Rectangle{ 23, 55, 10, 5 } == *rect);
+		
+		delete rect;
 		delete slider;
 	}
 
 	TEST_METHOD(ConstructModifyToRect) {
 		Slider* slider = new Slider(23, 55, 10, 5, 0);
 		slider->setPositionX(42);
-		Rectangle rect = slider->toRect();
+		Rectangle* rect = slider->toRect();
 
-		Assert::AreEqual(42, rect.positionX);
-		Assert::AreEqual(55, rect.positionY);
-		Assert::AreEqual(10, rect.width);
-		Assert::AreEqual(5, rect.height);
-
+		Assert::IsTrue(Rectangle{ 42, 55, 10, 5 } == *rect);
+		
+		delete rect;
 		delete slider;
 	}
 

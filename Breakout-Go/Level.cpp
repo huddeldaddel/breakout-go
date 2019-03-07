@@ -20,14 +20,14 @@ int Level::getBorderRight() {
   return borderRight;
 }
 
-Rectangle Level::getBorderLeftRect() {
-  return Rectangle{0, 0, borderLeft, device->getScreenHeight()};
+Rectangle* Level::getBorderLeftRect() {
+  return new Rectangle(0, 0, borderLeft, device->getScreenHeight());
 }
 
-Rectangle Level::getBorderTopRect() {
-  return Rectangle{0, 0, device->getScreenWidth(), borderTop};
+Rectangle* Level::getBorderTopRect() {
+  return new Rectangle(0, 0, device->getScreenWidth(), borderTop);
 }
 
-Rectangle Level::getBorderRightRect() {
-  return Rectangle{device->getScreenWidth() - borderRight, 0, borderRight, device->getScreenHeight()};   
+Rectangle* Level::getBorderRightRect() {
+  return new Rectangle(device->getScreenWidth() - borderRight, 0, borderRight, device->getScreenHeight());   
 }

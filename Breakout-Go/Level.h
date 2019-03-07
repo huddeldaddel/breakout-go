@@ -19,9 +19,9 @@ public:
 	int getBorderTop();
 	int getBorderRight();
 
-	Rectangle getBorderLeftRect();
-	Rectangle getBorderTopRect();
-	Rectangle getBorderRightRect();
+	Rectangle* getBorderLeftRect();
+	Rectangle* getBorderTopRect();
+	Rectangle* getBorderRightRect();
 };
 
 #endif

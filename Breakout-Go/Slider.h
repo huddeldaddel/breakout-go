@@ -28,7 +28,7 @@ class Slider {
     float getSpeed() const;
     void setSpeed(const float s);
 
-    Rectangle toRect() const;
+    Rectangle* toRect() const;
 };
 
 #endif

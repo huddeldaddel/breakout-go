@@ -13,8 +13,7 @@
 #include "Level.h"
 #include "Line.h"
 #include "Point.h"
-
-enum class Collision { NONE, FROM_LEFT, FROM_RIGHT, FROM_TOP, FROM_BOTTOM };
+#include "Rectangle.h"
 
 class CollisionCalculator {
   private:
@@ -34,8 +33,9 @@ class CollisionCalculator {
 	 */
 	std::vector<Line> getBallMovementOutlines(float momentumX, float momentumY);
 
-	float getDistanceToPoint(Line& line, Point* point);
-	Point* getIntersectionOfLines(Line& line1, Line& line2);
+	float getDistanceToPoint(Line& line, Point* point) const;
+	Point* getIntersectionOfLines(Line& line1, Line& line2) const;
+	Point* getCollisionWithBall(Rectangle& rectangle, float momentumX, float momentumY);
 
     int getLeftWallCollisionOverlap(); 
     int getRightWallCollisionOverlap(); 

@@ -16,11 +16,9 @@ public:
 		Level* level = new Level(device);
 
 		Assert::AreEqual(5, level->getBorderLeft());
-		Rectangle rect = level->getBorderLeftRect();
-		Assert::AreEqual(0, rect.positionX);
-		Assert::AreEqual(0, rect.positionY);
-		Assert::AreEqual(5, rect.width);
-		Assert::AreEqual(240, rect.height);
+		Rectangle* rect = level->getBorderLeftRect();
+		Assert::IsTrue(Rectangle{ 0, 0, 5, 240 } == *rect);
+		delete rect;
 
 		delete level;
 		delete device;
@@ -31,11 +29,9 @@ public:
 		Level* level = new Level(device);
 
 		Assert::AreEqual(5, level->getBorderTop());
-		Rectangle rect = level->getBorderTopRect();
-		Assert::AreEqual(0, rect.positionX);
-		Assert::AreEqual(0, rect.positionY);
-		Assert::AreEqual(320, rect.width);
-		Assert::AreEqual(5, rect.height);
+		Rectangle* rect = level->getBorderTopRect();
+		Assert::IsTrue(Rectangle{ 0, 0, 320, 5 } == *rect);
+		delete rect;
 
 		delete level;
 		delete device;
@@ -46,11 +42,9 @@ public:
 		Level* level = new Level(device);
 
 		Assert::AreEqual(5, level->getBorderRight());
-		Rectangle rect = level->getBorderRightRect();
-		Assert::AreEqual(315, rect.positionX);
-		Assert::AreEqual(0, rect.positionY);
-		Assert::AreEqual(5, rect.width);
-		Assert::AreEqual(240, rect.height);
+		Rectangle* rect = level->getBorderRightRect();
+		Assert::IsTrue(Rectangle{ 315, 0, 5, 240 } == *rect);
+		delete rect;
 
 		delete level;
 		delete device;

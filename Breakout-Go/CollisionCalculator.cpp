@@ -15,7 +15,7 @@ std::vector<Line> CollisionCalculator::getBallMovementOutlines(float momentumX, 
 	return result;
 }
     
-float CollisionCalculator::getDistanceToPoint(Line& line, Point* point) {
+float CollisionCalculator::getDistanceToPoint(Line& line, Point* point) const {
 #ifdef _DEBUG	
 	// We use functions from standard library on Windows
 	float a = std::fabsf(line.getX1() - point->getX());
@@ -29,13 +29,23 @@ float CollisionCalculator::getDistanceToPoint(Line& line, Point* point) {
 #endif
 }
 
-Point* CollisionCalculator::getIntersectionOfLines(Line& line1, Line& line2) {
+Point* CollisionCalculator::getIntersectionOfLines(Line& line1, Line& line2) const {
 	float a = ((line2.getX2() - line2.getX1()) * (line1.getY1() - line2.getY1()) - (line2.getY2() - line2.getY1()) * (line1.getX1() - line2.getX1())) / ((line2.getY2() - line2.getY1()) * (line1.getX2() - line1.getX1()) - (line2.getX2() - line2.getX1()) * (line1.getY2() - line1.getY1()));
 	float b = ((line1.getX2() - line1.getX1()) * (line1.getY1() - line2.getY1()) - (line1.getY2() - line1.getY1()) * (line1.getX1() - line2.getX1())) / ((line2.getY2() - line2.getY1()) * (line1.getX2() - line1.getX1()) - (line2.getX2() - line2.getX1()) * (line1.getY2() - line1.getY1()));
 	if (a >= 0 && a <= 1 && b >= 0 && b <= 1) {
 		float intersectionX = line1.getX1() + (a * (line1.getX2() - line1.getX1()));
 		float intersectionY = line1.getY1() + (a * (line1.getY2() - line1.getY1()));
 		return new Point(intersectionX, intersectionY);
+	}
+	return nullptr;
+}
+
+Point* CollisionCalculator::getCollisionWithBall(Rectangle& rectangle, float momentumX, float momentumY) {
+	float shortestDistance = 1000.0f;
+
+	std::vector<Line> outlines = getBallMovementOutlines(momentumX, momentumY);
+	for (int i = 0; i < 4; i++) {
+		// TODO
 	}
 	return nullptr;
 }
