@@ -179,6 +179,7 @@
     <ClCompile Include="CollisionCalculatorTest.cpp" />
     <ClCompile Include="ControllerTest.cpp" />
     <ClCompile Include="LevelTest.cpp" />
+    <ClCompile Include="LineTest.cpp" />
     <ClCompile Include="RendererTest.cpp" />
     <ClCompile Include="SliderTest.cpp" />
     <ClCompile Include="TestDevice.cpp" />

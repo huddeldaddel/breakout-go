@@ -5,6 +5,15 @@ CollisionCalculator::CollisionCalculator(Ball* b, Device* d, Level* l) : ball{ b
 
 CollisionCalculator::~CollisionCalculator() {
 }
+
+std::vector<Line> CollisionCalculator::getBallMovementOutlines(float momentumX, float momentumY) {
+	std::vector<Line> result{ };
+	result.push_back(Line{ ball->getPositionX(), ball->getPositionY() + ball->getRadius(), ball->getPositionX() + momentumX, ball->getPositionY() + ball->getRadius() + momentumY });
+	result.push_back(Line{ ball->getPositionX(), ball->getPositionY() - ball->getRadius(), ball->getPositionX() + momentumX, ball->getPositionY() - ball->getRadius() + momentumY });
+	result.push_back(Line{ ball->getPositionX() - ball->getRadius(), ball->getPositionY(), ball->getPositionX() - ball->getRadius() + momentumX, ball->getPositionY() + momentumY });
+	result.push_back(Line{ ball->getPositionX() + ball->getRadius(), ball->getPositionY(), ball->getPositionX() + ball->getRadius() + momentumX, ball->getPositionY() + momentumY });
+	return result;
+}
     
 float CollisionCalculator::getDistanceToPoint(Line& line, Point* point) {
 #ifdef _DEBUG	

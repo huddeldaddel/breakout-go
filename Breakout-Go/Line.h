@@ -1,8 +1,6 @@
 #ifndef _LINE_
 #define _LINE_
 
-#include "Point.h"
-
 class Line {
 private:
 	float x1;
@@ -17,6 +15,9 @@ public:
 	float getX2() const;
 	float getY1() const;
 	float getY2() const;
+
+	bool operator==(const Line& other) const;
+	bool operator!=(const Line& other) const;
 };
 
 #endif

@@ -24,7 +24,16 @@ class CollisionCalculator {
   public:
     CollisionCalculator(Ball* b, Device* d, Level* l);
     ~CollisionCalculator();
-    
+
+	/* Returns 4 lines that outline the movement of the ball. These lines are:
+	 *
+	 * 0: oldPosition.bottom -> newPosition.bottom
+	 * 1: oldPosition.top -> newPosition.top
+	 * 2: oldPosition.left -> newPosition.left
+	 * 3: oldPosition.right -> newPosition.right
+	 */
+	std::vector<Line> getBallMovementOutlines(float momentumX, float momentumY);
+
 	float getDistanceToPoint(Line& line, Point* point);
 	Point* getIntersectionOfLines(Line& line1, Line& line2);
 

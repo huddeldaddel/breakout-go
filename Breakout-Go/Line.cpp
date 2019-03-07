@@ -21,3 +21,15 @@ float Line::getY1() const {
 float Line::getY2() const {
 	return y2;
 }
+
+bool Line::operator==(const Line& other) const {
+	return
+		this->getX1() == other.getX1() &&
+		this->getX2() == other.getX2() &&
+		this->getY1() == other.getY1() &&
+		this->getY2() == other.getY2();
+}
+
+bool Line::operator!=(const Line& other) const {
+	return !(*this == other);
+}

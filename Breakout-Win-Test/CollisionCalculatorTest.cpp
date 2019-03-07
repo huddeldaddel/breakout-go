@@ -160,7 +160,7 @@ public:
 		delete ball;
 	}
 
-	TEST_METHOD(getDistanceToPoint) {
+	TEST_METHOD(getDistanceToPoint1) {
 		Ball* ball = new Ball(0, 0, 3);
 		Device* device = new TestDevice(false);
 		Level* level = new Level(device);
@@ -172,6 +172,43 @@ public:
 		Assert::AreEqual(5.65f, distance, 0.01f);
 		
 		delete intersection;
+		delete calc;
+		delete level;
+		delete device;
+		delete ball;
+	}
+
+	TEST_METHOD(getDistanceToPoint2) {
+		Ball* ball = new Ball(0, 0, 3);
+		Device* device = new TestDevice(false);
+		Level* level = new Level(device);
+		CollisionCalculator* calc = new CollisionCalculator(ball, device, level);
+		Line line{ 10, 10, 0, 0 };
+		Point* intersection = new Point(6, 6);
+
+		float distance = calc->getDistanceToPoint(line, intersection);
+		Assert::AreEqual(5.65f, distance, 0.01f);
+
+		delete intersection;
+		delete calc;
+		delete level;
+		delete device;
+		delete ball;
+	}
+
+	TEST_METHOD(getBallMovementOutlines) {
+		Ball* ball = new Ball(20, 20, 3);
+		Device* device = new TestDevice(false);
+		Level* level = new Level(device);
+		CollisionCalculator* calc = new CollisionCalculator(ball, device, level);
+		
+		std::vector<Line> outlines = calc->getBallMovementOutlines(5.0f, 5.0f);
+		Assert::AreEqual(4, int(outlines.size()));
+		Assert::IsTrue(Line{ 20, 23, 25, 28 } == outlines.at(0));
+		Assert::IsTrue(Line{ 20, 17, 25, 22 } == outlines.at(1));
+		Assert::IsTrue(Line{ 17, 20, 22, 25 } == outlines.at(2));
+		Assert::IsTrue(Line{ 23, 20, 28, 25 } == outlines.at(3));
+
 		delete calc;
 		delete level;
 		delete device;
