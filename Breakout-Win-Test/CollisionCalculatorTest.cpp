@@ -215,4 +215,46 @@ public:
 		delete ball;
 	}
 
+	TEST_METHOD(getCollisionDown) {
+		Ball* ball = new Ball(20, 20, 3);
+		Device* device = new TestDevice(false);
+		Level* level = new Level(device);
+		CollisionCalculator* calc = new CollisionCalculator(ball, device, level);
+
+		Rectangle rect{ 10, 25, 50, 3 };
+		Collision* collision = calc->getCollision(rect, 5, 5);
+
+		Assert::IsNotNull(collision);
+		Assert::IsTrue(Direction::DOWN == collision->getDirection());
+		Assert::AreEqual(2.82f, collision->getDistance(), 0.01f);
+		Assert::IsTrue(Point{ 22, 25 } == *collision->getPoint());
+		delete collision;
+
+		delete calc;
+		delete level;
+		delete device;
+		delete ball;
+	}
+
+	TEST_METHOD(getCollisionUp) {
+		Ball* ball = new Ball(20, 20, 3);
+		Device* device = new TestDevice(false);
+		Level* level = new Level(device);
+		CollisionCalculator* calc = new CollisionCalculator(ball, device, level);
+
+		Rectangle rect{ 10, 10, 50, 5 };
+		Collision* collision = calc->getCollision(rect, 5, -5);
+
+		Assert::IsNotNull(collision);
+		Assert::IsTrue(Direction::UP == collision->getDirection());
+		Assert::AreEqual(2.82f, collision->getDistance(), 0.01f);
+		Assert::IsTrue(Point{ 22, 15 } == *collision->getPoint());
+		delete collision;
+
+		delete calc;
+		delete level;
+		delete device;
+		delete ball;
+	}
+
 };

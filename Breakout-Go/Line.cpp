@@ -23,11 +23,20 @@ float Line::getY2() const {
 }
 
 bool Line::operator==(const Line& other) const {
-	return
-		this->getX1() == other.getX1() &&
-		this->getX2() == other.getX2() &&
-		this->getY1() == other.getY1() &&
-		this->getY2() == other.getY2();
+#ifdef _DEBUG	
+	// Implementation for Windows
+	float a = fabsf(x1 - other.x1);
+	float b = fabsf(y1 - other.y1);
+	float c = fabsf(x2 - other.x2);
+	float d = fabsf(y2 - other.y2);
+#else			
+	// Implementation for the Odroid-Go
+	float a = abs(x1 - other.x1);
+	float b = abs(y1 - other.y1);
+	float c = abs(x2 - other.x2);
+	float d = abs(y2 - other.y2);
+#endif
+	return(a < 0.01f) && (b < 0.01f) && (c < 0.01f) && (d < 0.01f);
 }
 
 bool Line::operator!=(const Line& other) const {

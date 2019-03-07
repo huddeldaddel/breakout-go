@@ -1,6 +1,13 @@
 #ifndef _LINE_
 #define _LINE_
 
+#ifdef _DEBUG
+	#include <corecrt_math.h>
+#else
+	// On the Odroid we need that import for various mathematical routines
+	#include <odroid_go.h>
+#endif
+
 class Line {
 private:
 	float x1;

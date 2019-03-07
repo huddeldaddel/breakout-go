@@ -15,6 +15,22 @@
 #include "Point.h"
 #include "Rectangle.h"
 
+enum class Direction { LEFT, RIGHT, UP, DOWN };
+
+class Collision {
+private:	
+	Direction direction;
+	float distance;
+	Point* point;
+public:
+	Collision(Direction direction, float distance, Point* point);
+	~Collision();
+
+	Direction getDirection() const;
+	float getDistance() const;
+	Point* getPoint() const;
+};
+
 class CollisionCalculator {
   private:
     Ball* ball;
@@ -35,7 +51,7 @@ class CollisionCalculator {
 
 	float getDistanceToPoint(Line& line, Point* point) const;
 	Point* getIntersectionOfLines(Line& line1, Line& line2) const;
-	Point* getCollisionWithBall(Rectangle& rectangle, float momentumX, float momentumY);
+	Collision* getCollision(Rectangle& rectangle, float momentumX, float momentumY);
 
     int getLeftWallCollisionOverlap(); 
     int getRightWallCollisionOverlap(); 
