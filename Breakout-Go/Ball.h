@@ -29,6 +29,9 @@ class Ball {
 
 	bool isMoving() const;
 	void setMoving(bool m);
+
+	void invertMovementX();
+	void invertMovementY();
 };
 
 #endif

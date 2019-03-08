@@ -50,3 +50,11 @@ bool Ball::isMoving() const {
 void Ball::setMoving(bool m) {
 	moving = m;
 }
+
+void Ball::invertMovementX() {
+	speedX *= -1;
+}
+
+void Ball::invertMovementY() {
+	speedY *= -1;
+}

@@ -177,10 +177,12 @@
     <ClCompile Include="..\Breakout-Go\Rectangle.cpp" />
     <ClCompile Include="..\Breakout-Go\Renderer.cpp" />
     <ClCompile Include="..\Breakout-Go\Slider.cpp" />
+    <ClCompile Include="BallTest.cpp" />
     <ClCompile Include="CollisionCalculatorTest.cpp" />
     <ClCompile Include="ControllerTest.cpp" />
     <ClCompile Include="LevelTest.cpp" />
     <ClCompile Include="LineTest.cpp" />
+    <ClCompile Include="PointTest.cpp" />
     <ClCompile Include="RendererTest.cpp" />
     <ClCompile Include="SliderTest.cpp" />
     <ClCompile Include="TestDevice.cpp" />

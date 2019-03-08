@@ -128,15 +128,15 @@ void Controller::updateBallPosition() {
 	CollisionCalculator calculator{ ball, device, level };
 	if (calculator.getRightWallCollisionOverlap() >= 0) {
 		ball->setPositionX(ball->getPositionX() - 2 * calculator.getRightWallCollisionOverlap());
-		ball->setSpeedX(ball->getSpeedX() * -1);
+		ball->invertMovementX();
 	} else if(calculator.getLeftWallCollisionOverlap() >= 0) {
 		ball->setPositionX(ball->getPositionX() + 2 * calculator.getLeftWallCollisionOverlap());
-		ball->setSpeedX(ball->getSpeedX() * -1);
+		ball->invertMovementX();
 	}
 
 	if (calculator.getTopWallCollisionOverlap() >= 0) {
 		ball->setPositionY(ball->getPositionY() + 2 * calculator.getTopWallCollisionOverlap());
-		ball->setSpeedY(ball->getSpeedY() * -1);
+		ball->invertMovementY();
 	} else if ((ball->getSpeedY() > 0) &&                                                              
 		(ball->getPositionY() + ball->getRadius() >= slider->getPositionY() + slider->getHeight()) &&
 		(ball->getPositionY() - ball->getSpeedY() + ball->getRadius() < slider->getPositionY() + slider->getHeight())) {
@@ -144,20 +144,8 @@ void Controller::updateBallPosition() {
 		if ((interceptX >= slider->getPositionX()) && (interceptX <= slider->getPositionX() + slider->getWidth())) {
 			// bounce off slider 
 			ball->setPositionY(ball->getPositionY() - 2 * ((ball->getPositionY() + ball->getRadius()) - slider->getPositionY()));
-			ball->setSpeedY(ball->getSpeedY() * -1);
+			ball->invertMovementY();
 		}
-		
-		/*
-		else if ((interceptX < slider->getPositionX()) && (interceptX + ball->getRadius() >= slider->getPositionX())) {
-			positionY -= 2 * ((positionY + ball->getRadius()) - slider->getPositionY());
-			speedY *= -1;
-			speedX = abs(speedX) * -1;
-		} else if ((interceptX > slider->getPositionX() + slider->getWidth()) && (interceptX - ball->getRadius() - ball->getRadius()  <= slider->getPositionX() + slider->getWidth())) {
-			positionY -= 2 * ((positionY + ball->getRadius()) - slider->getPositionY());
-			speedY *= -1;
-			speedX = abs(speedX);
-		}
-		*/
 	}
 
 	if (ball->getPositionY() > device->getScreenHeight()) {
