@@ -153,10 +153,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Breakout-Go\Ball.h" />
+    <ClInclude Include="..\Breakout-Go\Block.h" />
     <ClInclude Include="..\Breakout-Go\CollisionCalculator.h" />
     <ClInclude Include="..\Breakout-Go\Controller.h" />
     <ClInclude Include="..\Breakout-Go\Device.h" />
     <ClInclude Include="..\Breakout-Go\Level.h" />
+    <ClInclude Include="..\Breakout-Go\LevelFactory.h" />
     <ClInclude Include="..\Breakout-Go\Line.h" />
     <ClInclude Include="..\Breakout-Go\Point.h" />
     <ClInclude Include="..\Breakout-Go\Rectangle.h" />
@@ -169,9 +171,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Breakout-Go\Ball.cpp" />
+    <ClCompile Include="..\Breakout-Go\Block.cpp" />
     <ClCompile Include="..\Breakout-Go\CollisionCalculator.cpp" />
     <ClCompile Include="..\Breakout-Go\Controller.cpp" />
     <ClCompile Include="..\Breakout-Go\Level.cpp" />
+    <ClCompile Include="..\Breakout-Go\LevelFactory.cpp" />
     <ClCompile Include="..\Breakout-Go\Line.cpp" />
     <ClCompile Include="..\Breakout-Go\Point.cpp" />
     <ClCompile Include="..\Breakout-Go\Rectangle.cpp" />

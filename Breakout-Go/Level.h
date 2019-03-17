@@ -1,23 +1,31 @@
 #ifndef _LEVEL_
 #define _LEVEL_
 
+#include <vector>
+
+#include "Block.h"
 #include "Device.h"
 #include "Rectangle.h"
 
 class Level {
 private:
-	Device* device;
-	int number;
+	std::vector<Block> blocks{};
 	int borderLeft;
 	int borderTop;
 	int borderRight;
+	Device* device;
+	int number;
 public:
 	Level(Device* d);
+	Level(Device* d, int number);
     
-	int getNumber();
 	int getBorderLeft();
 	int getBorderTop();
 	int getBorderRight();
+
+	void addBlock(Block& block);
+	std::vector<Block> getBlocks();
+	int getNumber();
 
 	Rectangle* getBorderLeftRect();
 	Rectangle* getBorderTopRect();

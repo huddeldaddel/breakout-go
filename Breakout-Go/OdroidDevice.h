@@ -10,9 +10,10 @@ public:
   OdroidDevice();
   ~OdroidDevice();
 
-  void fillScreenRect(const int x, const int y, const int w, const int h, const unsigned int color);
+  void drawScreenRect(const int x, const int y, const int w, const int h, const unsigned int color);
   void fillScreenCircle(const int x, const int y, const int r, const unsigned int color);
-
+  void fillScreenRect(const int x, const int y, const int w, const int h, const unsigned int color);
+  
   int getScreenWidth() const;
   int getScreenHeight() const;
 

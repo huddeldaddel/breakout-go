@@ -8,6 +8,10 @@ OdroidDevice::~OdroidDevice() {
   
 }
 
+void OdroidDevice::drawScreenRect(const int x, const int y, const int w, const int h, const unsigned int color) {
+  GO.lcd.drawRect(x, y, w, h, color);
+}
+
 void OdroidDevice::fillScreenRect(const int x, const int y, const int w, const int h, const unsigned int color) {
   GO.lcd.fillRect(x, y, w, h, color);
 }

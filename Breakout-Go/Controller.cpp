@@ -3,10 +3,15 @@
 const int DEFAULT_LIFE_COUNT = 3;
 const int DEFAULT_BALL_RADIUS = 3;
 const float DEFAULT_BALL_SPEED = 4;
+const int DEFAULT_SLIDER_WIDTH = 50;
 
 Controller::Controller(Device* device) : device{ device } {
 	renderer = new Renderer(device);
-	level = new Level(device);
+
+	LevelFactory* levelFactory = new LevelFactory(device);
+	level = levelFactory->buildLevel(1);
+	delete levelFactory;
+
 	slider = new Slider(0, 0, 0, 0, 0);
 	ball = new Ball(0, 0, DEFAULT_BALL_RADIUS);
 
@@ -48,6 +53,9 @@ void Controller::startNewGame() {
 	renderer->renderBorders(level);
 	renderer->renderSlider(slider);
 	renderer->renderBall(ball);
+	for (int i = 0; i < level->getBlocks().size(); i++) {
+		renderer->renderBlock(level->getBlocks().at(i));
+	}
 }
 
 void Controller::updateGame() {
@@ -119,7 +127,7 @@ void Controller::resetBall() {
 }
 
 void Controller::resetSlider() {
-  slider->setWidth(30);
+  slider->setWidth(DEFAULT_SLIDER_WIDTH);
   slider->setHeight(3);
   slider->setSpeed(5.5);
   slider->setPositionX(float(device->getScreenWidth() - level->getBorderLeft() - level->getBorderRight() - slider->getWidth()) / 2); 

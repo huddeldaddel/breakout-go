@@ -6,6 +6,15 @@ TestDevice::TestDevice(const bool storeDrawOps) : storeDrawOperations{ storeDraw
 TestDevice::~TestDevice() {
 }
 
+void TestDevice::drawScreenRect(const int x, const int y, const int w, const int h, const unsigned int color) {
+	if (storeDrawOperations) {
+		DrawOperationRectangle rectangle{ x, y, w, h, color };
+		drawnRectangles.push_back(rectangle);
+	} else {
+		std::cout << "Rectangle (" << x << "/" << y << " - " << (x + w) << "/" << (y + h);
+	}
+}
+
 void TestDevice::fillScreenCircle(const int x, const int y, const int r, const unsigned int color) {
 	if (storeDrawOperations) {
 		DrawOperationCircle circle{ x, y, r, color };

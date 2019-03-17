@@ -66,6 +66,12 @@
     <ClInclude Include="..\Breakout-Go\Line.h">
       <Filter>Headerdateien\Game</Filter>
     </ClInclude>
+    <ClInclude Include="..\Breakout-Go\Block.h">
+      <Filter>Headerdateien\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Breakout-Go\LevelFactory.h">
+      <Filter>Headerdateien\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SliderTest.cpp">
@@ -121,6 +127,12 @@
     </ClCompile>
     <ClCompile Include="BallTest.cpp">
       <Filter>Quelldateien\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Breakout-Go\Block.cpp">
+      <Filter>Quelldateien\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Breakout-Go\LevelFactory.cpp">
+      <Filter>Quelldateien\Game</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
