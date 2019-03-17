@@ -13,6 +13,63 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 TEST_CLASS(CollisionCalculatorTest) {
 public:
 
+	TEST_METHOD(getCollisionWithLeftWallTouched) {
+		Ball* ball = new Ball(8, 0, 3);
+		Device* device = new TestDevice(false);
+		Level* level = new Level(device);
+		CollisionCalculator* calc = new CollisionCalculator(ball, device, level);
+
+		Collision* collision = calc->getCollisionWithLeftWall(-5, 0);
+		Assert::IsNotNull(collision);
+		Assert::AreEqual(0.0f, collision->getDistance(), 0.01f);
+		Assert::AreEqual(-5.0f, collision->getRemainingMomentumX());
+		Assert::AreEqual(0.0f, collision->getRemainingMomentumY());
+		
+		delete collision;
+		delete calc;
+		delete level;
+		delete device;
+		delete ball;
+	}
+
+	TEST_METHOD(getCollisionWithRightWallTouched) {
+		Ball* ball = new Ball(312, 0, 3);
+		Device* device = new TestDevice(false);
+		Level* level = new Level(device);
+		CollisionCalculator* calc = new CollisionCalculator(ball, device, level);
+
+		Collision* collision = calc->getCollisionWithRightWall(5, 0);
+		Assert::IsNotNull(collision);
+		Assert::AreEqual(0.0f, collision->getDistance(), 0.01f);
+		Assert::AreEqual(5.0f, collision->getRemainingMomentumX());
+		Assert::AreEqual(0.0f, collision->getRemainingMomentumY());
+
+		delete collision;
+		delete calc;
+		delete level;
+		delete device;
+		delete ball;
+	}
+
+	TEST_METHOD(getCollisionWithTopWallTouched) {
+		Ball* ball = new Ball(60, 8, 3);
+		Device* device = new TestDevice(false);
+		Level* level = new Level(device);
+		CollisionCalculator* calc = new CollisionCalculator(ball, device, level);
+
+		Collision* collision = calc->getCollisionWithTopWall(0, -5);
+		Assert::IsNotNull(collision);
+		Assert::AreEqual(0.0f, collision->getDistance(), 0.01f);
+		Assert::AreEqual(0.0f, collision->getRemainingMomentumX());
+		Assert::AreEqual(-5.0f, collision->getRemainingMomentumY());
+
+		delete collision;
+		delete calc;
+		delete level;
+		delete device;
+		delete ball;
+	}
+
 	TEST_METHOD(getLeftWallCollisionOverlapTouched) {
 		Ball* ball = new Ball(8, 0, 3); 
 		Device* device = new TestDevice(false);

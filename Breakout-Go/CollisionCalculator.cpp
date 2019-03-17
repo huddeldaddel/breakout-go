@@ -1,6 +1,8 @@
 #include "CollisionCalculator.h"
 
-Collision::Collision(Direction direction, float distance, Point* point) : direction{ direction }, distance{ distance }, point{ point } {
+Collision::Collision(Direction direction, float distance, Point* point, float mx, float my) : 
+	direction{ direction }, distance{ distance }, point{ point }, remainingMomentumX{ mx }, 
+	remainingMomentumY{ my } {
 }
 
 Collision::~Collision() {
@@ -18,6 +20,14 @@ float Collision::getDistance() const {
 
 Point* Collision::getPoint() const {
 	return point;
+}
+
+float Collision::getRemainingMomentumX() const {
+	return remainingMomentumX;
+}
+
+float Collision::getRemainingMomentumY() const {
+	return remainingMomentumY;
 }
 
 CollisionCalculator::CollisionCalculator(Ball* b, Device* d, Level* l) : ball{ b }, device{ d }, level{ l } {
@@ -61,53 +71,71 @@ Point* CollisionCalculator::getIntersectionOfLines(Line& line1, Line& line2) con
 }
 
 Collision* CollisionCalculator::getCollision(Rectangle& rectangle, float momentumX, float momentumY) {
-	bool found = false;
-	float shortestDistance = 1000.0f;
-	Direction direction{ Direction::DOWN };
-	Point* point = nullptr;
+	std::vector<Line> outlines = getBallMovementOutlines(momentumX, momentumY);
 
 	Line* horzRectLine = momentumY > 0 ? rectangle.getTopBorder() : rectangle.getBottomBorder();
-	Line* vertRectLine = momentumX > 0 ? rectangle.getLeftBorder() : rectangle.getRightBorder();
-
-	std::vector<Line> outlines = getBallMovementOutlines(momentumX, momentumY);
-	for (int i = 0; i < outlines.size(); i++) {
-		Line outline = outlines.at(i);
-		
-		Point* intersection = getIntersectionOfLines(outline, *horzRectLine);
-		if (nullptr != intersection) {
-			found = true;
-			float distance = getDistanceToPoint(outline, intersection);
-			if (distance < shortestDistance) {
-				if (nullptr != point)
-					delete point;
-				point = intersection;
-				shortestDistance = distance;
-				direction = momentumY > 0 ? Direction::DOWN : Direction::UP;
-			} else {
-				delete intersection;
-			}
-		}
-		
-		intersection = getIntersectionOfLines(outline, *vertRectLine);
-		if (nullptr != intersection) {
-			found = true;
-			float distance = getDistanceToPoint(outline, intersection);
-			if (distance < shortestDistance) {
-				if (nullptr != point)
-					delete point;
-				point = intersection;
-				shortestDistance = distance;
-				direction = momentumX > 0 ? Direction::RIGHT : Direction::LEFT;
-			} else {
-				delete intersection;	
-			}
-		}
-	}
-
+	Collision* horzCollision = getNearestCollision(*horzRectLine, outlines, momentumX, momentumY, true);
 	delete horzRectLine;
+
+	Line* vertRectLine = momentumX > 0 ? rectangle.getLeftBorder() : rectangle.getRightBorder();
+	Collision* vertCollision = getNearestCollision(*vertRectLine, outlines, momentumX, momentumY, false);
 	delete vertRectLine;
 
-	return found ? new Collision(direction, shortestDistance, point) : nullptr;
+	if ((nullptr == horzCollision) && (nullptr == vertCollision))
+		return nullptr;
+
+	if ((nullptr != horzCollision) && (nullptr == vertCollision)) 
+		return horzCollision;
+
+	if ((nullptr == horzCollision) && (nullptr != vertCollision)) 
+		return vertCollision;
+
+	if (horzCollision->getDistance() <= vertCollision->getDistance()) {
+		delete vertCollision;
+		return horzCollision;
+	} 
+	
+	delete horzCollision;
+	return vertCollision;
+}
+
+Collision* CollisionCalculator::getCollisionWithLeftWall(float momentumX, float momentumY) {
+	if (momentumX >= 0)
+		return nullptr;
+
+	float x = float(level->getBorderLeft());
+	Line* vertRectLine = new Line(x, 0, x, float(device->getScreenHeight()));
+	std::vector<Line> outlines = getBallMovementOutlines(momentumX, momentumY);
+	Collision* result = getNearestCollision(*vertRectLine, outlines, momentumX, momentumY, false);
+	delete vertRectLine;
+
+	return result;
+}
+
+Collision* CollisionCalculator::getCollisionWithRightWall(float momentumX, float momentumY) {
+	if (momentumX <= 0)
+		return nullptr;
+
+	float x = float(device->getScreenWidth() - level->getBorderRight());
+	Line* vertRectLine = new Line(x, 0, x, float(device->getScreenHeight()));
+	std::vector<Line> outlines = getBallMovementOutlines(momentumX, momentumY);
+	Collision* result = getNearestCollision(*vertRectLine, outlines, momentumX, momentumY, false);
+	delete vertRectLine;
+
+	return result;
+}
+
+Collision* CollisionCalculator::getCollisionWithTopWall(float momentumX, float momentumY) {
+	if (momentumY >= 0)
+		return nullptr;
+
+	float y = float(level->getBorderTop());
+	Line* vertRectLine = new Line(0, y, float(device->getScreenWidth()), y);
+	std::vector<Line> outlines = getBallMovementOutlines(momentumX, momentumY);
+	Collision* result = getNearestCollision(*vertRectLine, outlines, momentumX, momentumY, false);
+	delete vertRectLine;
+
+	return result;
 }
 
 int CollisionCalculator::getLeftWallCollisionOverlap() {
@@ -122,4 +150,41 @@ int CollisionCalculator::getRightWallCollisionOverlap() {
 
 int CollisionCalculator::getTopWallCollisionOverlap() {
 	return int(level->getBorderTop() - (ball->getPositionY() - ball->getRadius()));
+}
+
+Collision* CollisionCalculator::getNearestCollision(Line& line, std::vector<Line> outlines, float momentumX, float momentumY, bool isHorizontal) {
+	bool found = false;
+	float shortestDistance = 1000.0f;
+	Point* point = nullptr;
+	float remainingMomentumX = 0;
+	float remainingMomentumY = 0;
+
+	for (int i = 0; i < outlines.size(); i++) {
+		Line outline = outlines.at(i);
+
+		Point* intersection = getIntersectionOfLines(outline, line);
+		if (nullptr != intersection) {
+			found = true;
+			float distance = getDistanceToPoint(outline, intersection);
+			if (distance < shortestDistance) {
+				if (nullptr != point)
+					delete point;
+				point = intersection;
+				shortestDistance = distance;
+				remainingMomentumX = momentumX - (intersection->getX() - outline.getX1());
+				remainingMomentumY = momentumY - (intersection->getY() - outline.getY1());
+			} else {
+				delete intersection;
+			}
+		}
+	}
+
+	Direction direction;
+	if (isHorizontal) {
+		direction = momentumY > 0 ? Direction::DOWN : Direction::UP;
+	} else {
+		direction = momentumX > 0 ? Direction::RIGHT : Direction::LEFT;
+	}
+
+	return found ? new Collision(direction, shortestDistance, point, remainingMomentumX, remainingMomentumY) : nullptr;
 }
