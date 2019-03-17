@@ -132,24 +132,10 @@ Collision* CollisionCalculator::getCollisionWithTopWall(float momentumX, float m
 	float y = float(level->getBorderTop());
 	Line* vertRectLine = new Line(0, y, float(device->getScreenWidth()), y);
 	std::vector<Line> outlines = getBallMovementOutlines(momentumX, momentumY);
-	Collision* result = getNearestCollision(*vertRectLine, outlines, momentumX, momentumY, false);
+	Collision* result = getNearestCollision(*vertRectLine, outlines, momentumX, momentumY, true);
 	delete vertRectLine;
 
 	return result;
-}
-
-int CollisionCalculator::getLeftWallCollisionOverlap() {
-	return int(level->getBorderLeft() - (ball->getPositionX() - ball->getRadius()));
-}
-
-int CollisionCalculator::getRightWallCollisionOverlap() {
-	const int firstPixelOfWall = device->getScreenWidth() - level->getBorderRight();
-	const float ballPlusRadius = ball->getPositionX() + ball->getRadius();
-	return -1 * int(firstPixelOfWall -1 - ballPlusRadius);
-}
-
-int CollisionCalculator::getTopWallCollisionOverlap() {
-	return int(level->getBorderTop() - (ball->getPositionY() - ball->getRadius()));
 }
 
 Collision* CollisionCalculator::getNearestCollision(Line& line, std::vector<Line> outlines, float momentumX, float momentumY, bool isHorizontal) {

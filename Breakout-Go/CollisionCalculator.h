@@ -61,10 +61,6 @@ class CollisionCalculator {
 	Collision* getCollisionWithRightWall(float momentumX, float momentumY);
 	Collision* getCollisionWithTopWall(float momentumX, float momentumY);
 
-    int getLeftWallCollisionOverlap(); 
-    int getRightWallCollisionOverlap(); 
-	int getTopWallCollisionOverlap();
-
 };
 
 #endif

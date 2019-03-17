@@ -1,6 +1,8 @@
 #ifndef _CONTROLLER_
 #define _CONTROLLER_
 
+#include <algorithm>
+
 #include "Ball.h"
 #include "CollisionCalculator.h"
 #include "Device.h"
@@ -27,7 +29,8 @@ class Controller {
 
 		void startBall();
 
-		void updateBallPosition();
+		void updateBallPosition(float momentumX, float momentumY);
+
 		void updateBallPositionOnSlider();
 		void updateSliderPosition();
 	public:

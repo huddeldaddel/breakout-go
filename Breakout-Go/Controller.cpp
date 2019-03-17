@@ -58,7 +58,7 @@ void Controller::updateGame() {
     }
   
     renderer->removeBall(ball);
-    updateBallPosition();
+    updateBallPosition(ball->getSpeedX(), ball->getSpeedY());
     renderer->renderBall(ball);
   
     if(isSliderMoving()) {
@@ -74,6 +74,10 @@ void Controller::updateGame() {
 	if (ballStarted || isSliderMoving()) {
 		renderer->renderSlider(slider);
 	}
+
+	if (ball->getPositionY() > device->getScreenHeight()) {
+		handleDeath();
+	}
 }
 
 void Controller::startBall() {
@@ -88,6 +92,7 @@ void Controller::startBall() {
 void Controller::handleDeath() {
 	lives -= 1;
 	if (lives > 0) {
+		renderer->removeBall(ball);
 		renderer->removeSlider(slider);
 
 		resetSlider();
@@ -121,36 +126,55 @@ void Controller::resetSlider() {
   slider->setPositionY(float(device->getScreenHeight() -10));
 }
 
-void Controller::updateBallPosition() {
-	ball->setPositionX(ball->getPositionX() + ball->getSpeedX());
-	ball->setPositionY(ball->getPositionY() + ball->getSpeedY());
+bool compareCollisions(Collision* i, Collision* j) {
+	if ((nullptr == i) && (nullptr == j))
+		return false;
+	if ((nullptr != i) && (nullptr == j))
+		return true;
+	if ((nullptr == i) && (nullptr != j))
+		return false;
+	return i->getDistance() < j->getDistance();
+}
 
+void Controller::updateBallPosition(float momentumX, float momentumY) {
 	CollisionCalculator calculator{ ball, device, level };
-	if (calculator.getRightWallCollisionOverlap() >= 0) {
-		ball->setPositionX(ball->getPositionX() - 2 * calculator.getRightWallCollisionOverlap());
-		ball->invertMovementX();
-	} else if(calculator.getLeftWallCollisionOverlap() >= 0) {
-		ball->setPositionX(ball->getPositionX() + 2 * calculator.getLeftWallCollisionOverlap());
-		ball->invertMovementX();
-	}
+	std::vector<Collision*> collisions{ };
 
-	if (calculator.getTopWallCollisionOverlap() >= 0) {
-		ball->setPositionY(ball->getPositionY() + 2 * calculator.getTopWallCollisionOverlap());
-		ball->invertMovementY();
-	} else if ((ball->getSpeedY() > 0) &&                                                              
-		(ball->getPositionY() + ball->getRadius() >= slider->getPositionY() + slider->getHeight()) &&
-		(ball->getPositionY() - ball->getSpeedY() + ball->getRadius() < slider->getPositionY() + slider->getHeight())) {
-		const float interceptX = (ball->getPositionX() - ball->getSpeedX()) + ball->getSpeedX() * ((slider->getPositionY() - ball->getRadius() - ball->getPositionY()) / ball->getSpeedY());
-		if ((interceptX >= slider->getPositionX()) && (interceptX <= slider->getPositionX() + slider->getWidth())) {
-			// bounce off slider 
-			ball->setPositionY(ball->getPositionY() - 2 * ((ball->getPositionY() + ball->getRadius()) - slider->getPositionY()));
+	// Walls
+	collisions.push_back(calculator.getCollisionWithLeftWall(momentumX, momentumY));
+	collisions.push_back(calculator.getCollisionWithTopWall(momentumX, momentumY));
+	collisions.push_back(calculator.getCollisionWithRightWall(momentumX, momentumY));
+
+	// Slider
+	Rectangle* sliderRect = slider->toRect();
+	collisions.push_back(calculator.getCollision(*sliderRect, momentumX, momentumY));
+	delete sliderRect;
+
+	std::sort(collisions.begin(), collisions.end(), compareCollisions);
+	Collision* collision = collisions.at(0);
+	if (nullptr != collision) {
+		float distanceX = momentumX - collision->getRemainingMomentumX();
+		float distanceY = momentumY - collision->getRemainingMomentumY();
+		ball->setPositionX(ball->getPositionX() + distanceX);
+		ball->setPositionY(ball->getPositionY() + distanceY);
+
+		Direction direction = collision->getDirection();
+		if (Direction::LEFT == direction || Direction::RIGHT == direction) {
+			ball->invertMovementX();
+			updateBallPosition(0 - collision->getRemainingMomentumX(), collision->getRemainingMomentumY());
+		} else {
 			ball->invertMovementY();
+			updateBallPosition(collision->getRemainingMomentumX(), 0 - collision->getRemainingMomentumY());
 		}
+		
+	} else {
+		ball->setPositionX(ball->getPositionX() + momentumX);
+		ball->setPositionY(ball->getPositionY() + momentumY);
 	}
 
-	if (ball->getPositionY() > device->getScreenHeight()) {
-		handleDeath();
-	}
+	for (int i = 0; i < collisions.size(); i++)
+		if (nullptr != collisions.at(i))
+			delete collisions.at(i);
 }
 
 void Controller::updateBallPositionOnSlider() {
