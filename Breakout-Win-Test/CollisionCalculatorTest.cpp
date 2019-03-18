@@ -152,8 +152,9 @@ public:
 		Level* level = new Level(device);
 		CollisionCalculator* calc = new CollisionCalculator(ball, device, level);
 
-		Rectangle rect{ 10, 25, 50, 3 };
+		Rectangle* rect = new Rectangle(10, 25, 50, 3);
 		Collision* collision = calc->getCollision(rect, 5, 5);
+		delete rect;
 
 		Assert::IsNotNull(collision);
 		Assert::IsTrue(Direction::DOWN == collision->getDirection());
@@ -173,8 +174,9 @@ public:
 		Level* level = new Level(device);
 		CollisionCalculator* calc = new CollisionCalculator(ball, device, level);
 
-		Rectangle rect{ 10, 10, 50, 5 };
+		Rectangle* rect = new Rectangle(10, 10, 50, 5);
 		Collision* collision = calc->getCollision(rect, 5, -5);
+		delete rect;
 
 		Assert::IsNotNull(collision);
 		Assert::IsTrue(Direction::UP == collision->getDirection());

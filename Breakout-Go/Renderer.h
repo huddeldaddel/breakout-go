@@ -21,8 +21,8 @@ class Renderer {
     void renderBall(Ball* ball);
     void removeBall(Ball* ball);
     
-	void renderBlock(Block& block);
-	void removeBlock(Block& block);
+	void renderBlock(Block* block);
+	void removeBlock(Rectangle* rectangle);
 
     void renderBorders(Level* level);
 

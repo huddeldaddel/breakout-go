@@ -1,13 +1,21 @@
 #include "CollisionCalculator.h"
 
 Collision::Collision(Direction direction, float distance, Point* point, float mx, float my) : 
-	direction{ direction }, distance{ distance }, point{ point }, remainingMomentumX{ mx }, 
+	rectangle{ nullptr }, direction{ direction }, distance{ distance }, point{ point }, remainingMomentumX{ mx },
 	remainingMomentumY{ my } {
 }
 
 Collision::~Collision() {
 	if (nullptr != point)
 		delete point;
+}
+
+Rectangle* Collision::getRectangle() const {
+	return rectangle;
+}
+
+void Collision::setRectangle(Rectangle* r) {
+	rectangle = r;
 }
 
 Direction Collision::getDirection() const {
@@ -70,25 +78,32 @@ Point* CollisionCalculator::getIntersectionOfLines(Line& line1, Line& line2) con
 	return nullptr;
 }
 
-Collision* CollisionCalculator::getCollision(Rectangle& rectangle, float momentumX, float momentumY) {
+Collision* CollisionCalculator:: getCollision(Rectangle* rectangle, float momentumX, float momentumY) {
 	std::vector<Line> outlines = getBallMovementOutlines(momentumX, momentumY);
 
-	Line* horzRectLine = momentumY > 0 ? rectangle.getTopBorder() : rectangle.getBottomBorder();
+	Line* horzRectLine = momentumY > 0 ? rectangle->getTopBorder() : rectangle->getBottomBorder();
 	Collision* horzCollision = getNearestCollision(*horzRectLine, outlines, momentumX, momentumY, true);
 	delete horzRectLine;
 
-	Line* vertRectLine = momentumX > 0 ? rectangle.getLeftBorder() : rectangle.getRightBorder();
+	Line* vertRectLine = momentumX > 0 ? rectangle->getLeftBorder() : rectangle->getRightBorder();
 	Collision* vertCollision = getNearestCollision(*vertRectLine, outlines, momentumX, momentumY, false);
 	delete vertRectLine;
 
 	if ((nullptr == horzCollision) && (nullptr == vertCollision))
 		return nullptr;
 
-	if ((nullptr != horzCollision) && (nullptr == vertCollision)) 
+	if ((nullptr != horzCollision) && (nullptr == vertCollision)) {
+		horzCollision->setRectangle(rectangle);
 		return horzCollision;
+	}
 
-	if ((nullptr == horzCollision) && (nullptr != vertCollision)) 
+	if ((nullptr == horzCollision) && (nullptr != vertCollision)) {
+		vertCollision->setRectangle(rectangle);
 		return vertCollision;
+	}
+
+	horzCollision->setRectangle(rectangle);
+	vertCollision->setRectangle(rectangle);
 
 	if (horzCollision->getDistance() <= vertCollision->getDistance()) {
 		delete vertCollision;

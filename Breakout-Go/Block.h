@@ -16,7 +16,7 @@ public:
 	int getDurability() const;
 	int getPoints() const;
 
-	bool decreaseDurability();
+	int hit();
 };
 
 #endif

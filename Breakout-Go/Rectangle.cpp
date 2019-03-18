@@ -22,6 +22,10 @@ int Rectangle::getHeight() const {
 	return height;
 }
 
+int Rectangle::hit() {
+	return 0;
+}
+
 Line* Rectangle::getLeftBorder() const {
 	return new Line(float(positionX), float(positionY), float(positionX), float(positionY + height));
 }

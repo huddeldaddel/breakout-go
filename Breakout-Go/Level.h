@@ -9,7 +9,7 @@
 
 class Level {
 private:
-	std::vector<Block> blocks{};
+	std::vector<Block*> blocks{};
 	int borderLeft;
 	int borderTop;
 	int borderRight;
@@ -18,13 +18,14 @@ private:
 public:
 	Level(Device* d);
 	Level(Device* d, int number);
-    
+	~Level();
+
 	int getBorderLeft();
 	int getBorderTop();
 	int getBorderRight();
 
-	void addBlock(Block& block);
-	std::vector<Block> getBlocks();
+	void addBlock(Block* block);
+	std::vector<Block*> getBlocks();
 	int getNumber();
 
 	Rectangle* getBorderLeftRect();

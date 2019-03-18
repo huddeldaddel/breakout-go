@@ -148,15 +148,19 @@ void Controller::updateBallPosition(float momentumX, float momentumY) {
 	CollisionCalculator calculator{ ball, device, level };
 	std::vector<Collision*> collisions{ };
 
+	// Blocks
+	for (int i = 0; i < level->getBlocks().size(); i++)
+		if(0 < level->getBlocks().at(i)->getDurability())
+			collisions.push_back(calculator.getCollision(level->getBlocks().at(i), momentumX, momentumY));
+
+	// Slider
+	Rectangle* sliderRect = slider->toRect();
+	collisions.push_back(calculator.getCollision(sliderRect, momentumX, momentumY));
+
 	// Walls
 	collisions.push_back(calculator.getCollisionWithLeftWall(momentumX, momentumY));
 	collisions.push_back(calculator.getCollisionWithTopWall(momentumX, momentumY));
 	collisions.push_back(calculator.getCollisionWithRightWall(momentumX, momentumY));
-
-	// Slider
-	Rectangle* sliderRect = slider->toRect();
-	collisions.push_back(calculator.getCollision(*sliderRect, momentumX, momentumY));
-	delete sliderRect;
 
 	std::sort(collisions.begin(), collisions.end(), compareCollisions);
 	Collision* collision = collisions.at(0);
@@ -175,6 +179,14 @@ void Controller::updateBallPosition(float momentumX, float momentumY) {
 			updateBallPosition(collision->getRemainingMomentumX(), 0 - collision->getRemainingMomentumY());
 		}
 		
+		Rectangle* rect = collision->getRectangle();
+		if (nullptr != rect) {
+			int points = rect->hit();
+			if (0 < points) {
+				// TODO: Keep track of user's score
+				renderer->removeBlock(rect);
+			}
+		}
 	} else {
 		ball->setPositionX(ball->getPositionX() + momentumX);
 		ball->setPositionY(ball->getPositionY() + momentumY);
@@ -183,6 +195,7 @@ void Controller::updateBallPosition(float momentumX, float momentumY) {
 	for (int i = 0; i < collisions.size(); i++)
 		if (nullptr != collisions.at(i))
 			delete collisions.at(i);
+	delete sliderRect;
 }
 
 void Controller::updateBallPositionOnSlider() {

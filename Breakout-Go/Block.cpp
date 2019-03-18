@@ -19,7 +19,7 @@ int Block::getPoints() const {
 	return points;
 }
 
-bool Block::decreaseDurability() {
+int Block::hit() {
 	durability--;
-	return durability > 0;
+	return (durability == 0) ? getPoints() : 0;
 }

@@ -18,6 +18,8 @@ public :
 	int getWidth() const;
 	int getHeight() const;
 
+	virtual int hit();
+
 	Line* getLeftBorder() const;
 	Line* getTopBorder() const;
 	Line* getBottomBorder() const;

@@ -1,10 +1,10 @@
 #include "Renderer.h"
 
-const unsigned int COLOR_BACKGROUND = 0x0000; /*   0,   0,   0 */
-const unsigned int COLOR_BALL = 0xFFFF;		  /* 255, 255, 255 */	
+const unsigned int COLOR_BACKGROUND = 0x0000;		/*   0,   0,   0 */
+const unsigned int COLOR_BALL = 0xFFFF;				/* 255, 255, 255 */	
 const unsigned int COLOR_BLOCK_BORDER = 0xC618;
-const unsigned int COLOR_BORDER = 0xC618;	  /* 192, 192, 192 */
-const unsigned int COLOR_SLIDER = 0x7BEF;	  /* 128, 128, 128 */ 
+const unsigned int COLOR_BORDER = 0xC618;			/* 192, 192, 192 */
+const unsigned int COLOR_SLIDER = 0x7BEF;			/* 128, 128, 128 */ 
 
 Renderer::Renderer(Device* device) : device{device} { }
 
@@ -54,11 +54,11 @@ void Renderer::renderSlider(Slider* slider) {
 	delete rect;
 }
 
-void Renderer::renderBlock(Block& block) {
-	renderRectangle(&block, block.getColor());
-	device->drawScreenRect(block.getPositionX(), block.getPositionY(), block.getWidth(), block.getHeight(), COLOR_BLOCK_BORDER);
+void Renderer::renderBlock(Block* block) {
+	renderRectangle(block, block->getColor());
+	device->drawScreenRect(block->getPositionX(), block->getPositionY(), block->getWidth(), block->getHeight(), 0x0000);
 }
 
-void Renderer::removeBlock(Block& block) {
-	renderRectangle(&block, COLOR_BACKGROUND);
+void Renderer::removeBlock(Rectangle* rectangle) {
+	renderRectangle(rectangle, COLOR_BACKGROUND);
 }

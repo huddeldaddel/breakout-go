@@ -19,6 +19,7 @@ enum class Direction { LEFT, RIGHT, UP, DOWN };
 
 class Collision {
 private:	
+	Rectangle* rectangle;
 	Direction direction;
 	float distance;
 	Point* point;
@@ -27,6 +28,9 @@ private:
 public:
 	Collision(Direction direction, float distance, Point* point, float remainingMomentumX, float remainingMomentumY);
 	~Collision();
+
+	Rectangle* getRectangle() const;
+	void setRectangle(Rectangle* block);
 
 	Direction getDirection() const;
 	float getDistance() const;
@@ -56,7 +60,7 @@ class CollisionCalculator {
 	float getDistanceToPoint(Line& line, Point* point) const;
 	Point* getIntersectionOfLines(Line& line1, Line& line2) const;
 	Collision* getNearestCollision(Line& line, std::vector<Line> outlines, float momentumX, float momentumY, bool isHorizontal);
-	Collision* getCollision(Rectangle& rectangle, float momentumX, float momentumY);
+	Collision* getCollision(Rectangle* rectangle, float momentumX, float momentumY);
 	Collision* getCollisionWithLeftWall(float momentumX, float momentumY);
 	Collision* getCollisionWithRightWall(float momentumX, float momentumY);
 	Collision* getCollisionWithTopWall(float momentumX, float momentumY);
