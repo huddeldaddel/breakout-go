@@ -169,22 +169,50 @@ void Controller::updateBallPosition(float momentumX, float momentumY) {
 		float distanceY = momentumY - collision->getRemainingMomentumY();
 		ball->setPositionX(ball->getPositionX() + distanceX);
 		ball->setPositionY(ball->getPositionY() + distanceY);
-
-		Direction direction = collision->getDirection();
-		if (Direction::LEFT == direction || Direction::RIGHT == direction) {
-			ball->invertMovementX();
-			updateBallPosition(0 - collision->getRemainingMomentumX(), collision->getRemainingMomentumY());
-		} else {
-			ball->invertMovementY();
-			updateBallPosition(collision->getRemainingMomentumX(), 0 - collision->getRemainingMomentumY());
-		}
 		
+		bool defaultBounceOff = true;		// bouncing off a wall or a block
 		Rectangle* rect = collision->getRectangle();
 		if (nullptr != rect) {
 			int points = rect->hit();
 			if (0 < points) {
+				// We've hit a block
 				// TODO: Keep track of user's score
 				renderer->removeBlock(rect);
+			} else {
+				// We've hit the slider
+				defaultBounceOff = false;	
+				const float pi = 3.141592653589793;
+				float x = collision->getPoint()->getX();
+				if (x <= (slider->getPositionX() + (slider->getWidth() / 6))) {
+					ball->setSpeedX(cosf(7 * pi / 8) * 5.65);
+					ball->setSpeedY(sinf(7 * pi / 8) * -5.65);
+				} else if (x <= (slider->getPositionX() + (slider->getWidth() / 6) * 2)) {
+					ball->setSpeedX(-4);
+					ball->setSpeedY(-4);
+				} else if (x <= (slider->getPositionX() + (slider->getWidth() / 6) * 3)) {
+					ball->setSpeedX(cosf(5 * pi / 8) * 5.65);
+					ball->setSpeedY(sinf(5 * pi / 8) * -5.65);
+				} else if (x <= (slider->getPositionX() + (slider->getWidth() / 6) * 4)) {
+					ball->setSpeedX(cosf(3 * pi / 8) * 5.65);
+					ball->setSpeedY(sinf(3 * pi / 8) * -5.65);
+				} else if (x <= (slider->getPositionX() + (slider->getWidth() / 6) * 5)) {
+					ball->setSpeedX(4);
+					ball->setSpeedY(-4);
+				} else {
+					ball->setSpeedX(cosf(pi / 8) * 5.65);
+					ball->setSpeedY(sinf(pi / 8) * -5.65);
+				}
+			}
+		}
+
+		if (defaultBounceOff) {
+			Direction direction = collision->getDirection();
+			if (Direction::LEFT == direction || Direction::RIGHT == direction) {
+				ball->invertMovementX();
+				updateBallPosition(0 - collision->getRemainingMomentumX(), collision->getRemainingMomentumY());
+			} else {
+				ball->invertMovementY();
+				updateBallPosition(collision->getRemainingMomentumX(), 0 - collision->getRemainingMomentumY());
 			}
 		}
 	} else {
