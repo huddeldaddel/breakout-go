@@ -182,9 +182,9 @@ void Controller::updateBallPosition(float momentumX, float momentumY) {
 				// We've hit the slider
 				defaultBounceOff = false;	
 				const float factor = (collision->getPoint()->getX() - slider->getPositionX()) / slider->getWidth();
-				const float angle = (7 - (factor * 6)) * 3.141592653589793 / 8;
-				ball->setSpeedX(cosf(angle) *  5.65);
-				ball->setSpeedY(sinf(angle) * -5.65);
+				const float angle = float((7 - (factor * 6)) * 3.141592653589793 / 8);
+				ball->setSpeedX(cosf(angle) *  5.65f);
+				ball->setSpeedY(sinf(angle) * -5.65f);
 			}
 		}
 
