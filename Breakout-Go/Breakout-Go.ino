@@ -39,6 +39,7 @@ void loop() {
 }
 
 void printWelcomeMessage() {
+  GO.lcd.setTextColor(WHITE);
   GO.lcd.setTextSize(2);
   GO.lcd.setCursor(95, device->getScreenHeight() / 2 - 30);
   if(controller->isGameOver()) {

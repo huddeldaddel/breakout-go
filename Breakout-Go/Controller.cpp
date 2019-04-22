@@ -52,9 +52,8 @@ void Controller::startNewGame() {
 	renderer->renderBorders(level);
 	renderer->renderSlider(slider);
 	renderer->renderBall(ball);
-	for (int i = 0; i < level->getBlocks().size(); i++) {
-		renderer->renderBlock(level->getBlocks().at(i));
-	}
+	for (int i = 0; i < level->getBlocks().size(); i++)
+		renderer->renderBlock(level->getBlocks().at(i));	
 }
 
 void Controller::updateGame() {
@@ -78,21 +77,19 @@ void Controller::updateGame() {
 		}
     }
     
-	if (ballStarted || isSliderMoving()) {
+	if (ballStarted || isSliderMoving())
 		renderer->renderSlider(slider);
-	}
 
-	if (ball->getPositionY() > device->getScreenHeight()) {
+	if (ball->getPositionY() > device->getScreenHeight()) 
 		handleDeath();
-	}
+
+	if (level->isWon())
+		handleWon();
 }
 
 void Controller::startBall() {
 	ball->setMoving(true);
-	ball->setSpeedX(DEFAULT_BALL_SPEED);
-	if(device->isButtonBPressed()) {
-		ball->setSpeedX(ball->getSpeedX() * -1);
-	}
+	ball->setSpeedX(device->isButtonBPressed() ? DEFAULT_BALL_SPEED * -1 : DEFAULT_BALL_SPEED);
 	ball->setSpeedY(DEFAULT_BALL_SPEED * -1);
 }
 
@@ -111,7 +108,25 @@ void Controller::handleDeath() {
 	} else {
 		gameOver = true;
 	}
-  renderer->renderScore(level, lives, score);
+	renderer->renderScore(level, lives, score);
+}
+
+void Controller::handleWon() {
+	lives++;	
+
+	renderer->removeBall(ball);
+	renderer->removeSlider(slider);
+
+	resetSlider();
+	resetBall();
+	updateBallPositionOnSlider();
+
+	renderer->renderSlider(slider);
+	renderer->renderBall(ball);
+
+	level->reset();
+	for (int i = 0; i < level->getBlocks().size(); i++)
+		renderer->renderBlock(level->getBlocks().at(i));
 }
 
 bool Controller::isSliderMoving() {
@@ -173,10 +188,10 @@ void Controller::updateBallPosition(float momentumX, float momentumY) {
 		bool defaultBounceOff = true;		// bouncing off a wall or a block
 		Rectangle* rect = collision->getRectangle();
 		if (nullptr != rect) {
-			int points = rect->hit();
+			const int points = rect->hit();
 			if (0 < points) {
 				// We've hit a block
-				score = score +1;
+				score = score + points;
 				renderer->renderScore(level, lives, score);
 				renderer->removeBlock(rect);
 			} else {

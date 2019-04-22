@@ -14,6 +14,7 @@ private:
 	int borderTop;
 	int borderRight;
 	Device* device;	
+	void initBlocks();
 public:
 	Level(Device* d);	
 	~Level();
@@ -28,6 +29,9 @@ public:
 	Rectangle* getBorderLeftRect();
 	Rectangle* getBorderTopRect();
 	Rectangle* getBorderRightRect();
+
+	bool isWon();
+	void reset();
 };
 
 #endif

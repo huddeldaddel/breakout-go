@@ -23,6 +23,7 @@ private:
 	long score;
 
 	void handleDeath();
+	void handleWon();
 	bool isSliderMoving();
 
 	void resetBall();
