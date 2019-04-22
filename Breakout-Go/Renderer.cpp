@@ -62,3 +62,10 @@ void Renderer::renderBlock(Block* block) {
 void Renderer::removeBlock(Rectangle* rectangle) {
 	renderRectangle(rectangle, COLOR_BACKGROUND);
 }
+
+void Renderer::renderScore(Level* level, int lives, long score) {
+	Rectangle* rect = level->getBorderTopRect();
+	renderRectangle(rect, COLOR_BORDER);
+	device->print(lives, score);
+	delete rect;
+}

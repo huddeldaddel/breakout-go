@@ -24,6 +24,8 @@ public:
   bool isDirectionUpPressed() const;
   bool isDirectionRightPressed() const;
 
+  void print(const int lives, const long score) const;
+
   void sleep(const int millis) const;
   void update();
 };

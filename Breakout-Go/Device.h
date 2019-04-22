@@ -17,6 +17,8 @@ class Device {
     virtual bool isDirectionUpPressed() const = 0;
     virtual bool isDirectionRightPressed() const = 0;
 
+	  virtual void print(const int lives, const long score) const = 0;
+
     virtual void sleep(const int millis) const = 0;
 };
 

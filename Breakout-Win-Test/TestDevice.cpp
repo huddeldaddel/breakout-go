@@ -65,6 +65,10 @@ bool TestDevice::isDirectionRightPressed() const {
 	return false;
 }
 
+void TestDevice::print(const int lives, const long score) const {
+	std::cout << score;
+}
+
 void TestDevice::sleep(const int millis) const {
 
 }

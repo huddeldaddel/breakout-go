@@ -26,6 +26,8 @@ class Renderer {
 
     void renderBorders(Level* level);
 
+	void renderScore(Level* level, int lives, long score);
+
     void removeSlider(Slider* slider);
     void renderSlider(Slider* slider);
 };

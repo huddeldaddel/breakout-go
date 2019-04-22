@@ -18,8 +18,9 @@ private:
 	Slider* slider;
 	Renderer* renderer;
 
-	int lives;
 	bool gameOver;
+	int lives;
+	long score;
 
 	void handleDeath();
 	bool isSliderMoving();

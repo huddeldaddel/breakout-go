@@ -53,6 +53,18 @@ bool OdroidDevice::isDirectionRightPressed() const {
   return (1 == GO.JOY_X.isAxisPressed()); 
 }
 
+void OdroidDevice::print(const int lives, const long score) const {
+  GO.lcd.setTextColor(BLACK);
+  GO.lcd.setTextSize(1);
+  GO.lcd.setCursor(10, 6);
+  GO.lcd.println("Lives: ");
+  GO.lcd.drawNumber((long)lives, 50, 6);
+  
+  GO.lcd.setCursor(100, 6);
+  GO.lcd.println("Score: ");
+  GO.lcd.drawNumber(score, 140, 6);
+}
+
 void OdroidDevice::sleep(const int millis) const {
   delay(millis);
 }

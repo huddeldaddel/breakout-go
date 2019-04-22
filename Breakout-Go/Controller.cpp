@@ -13,6 +13,7 @@ Controller::Controller(Device* device) : device{ device } {
 	ball = new Ball(0, 0, DEFAULT_BALL_RADIUS);
 
 	lives = 0;
+	score = 0;
 	gameOver = false;
 }
 
@@ -39,9 +40,10 @@ bool Controller::isGameOver() const {
 	return gameOver;
 }
 
-void Controller::startNewGame() {
-	lives = DEFAULT_LIFE_COUNT;
+void Controller::startNewGame() {	
 	gameOver = false;
+	lives = DEFAULT_LIFE_COUNT;
+	score = 0;
 
 	resetSlider();
 	updateBallPositionOnSlider();
@@ -109,6 +111,7 @@ void Controller::handleDeath() {
 	} else {
 		gameOver = true;
 	}
+  renderer->renderScore(level, lives, score);
 }
 
 bool Controller::isSliderMoving() {
@@ -173,7 +176,8 @@ void Controller::updateBallPosition(float momentumX, float momentumY) {
 			int points = rect->hit();
 			if (0 < points) {
 				// We've hit a block
-				// TODO: Keep track of user's score
+				score = score +1;
+				renderer->renderScore(level, lives, score);
 				renderer->removeBlock(rect);
 			} else {
 				// We've hit the slider
