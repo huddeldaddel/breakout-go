@@ -13,11 +13,9 @@ private:
 	int borderLeft;
 	int borderTop;
 	int borderRight;
-	Device* device;
-	int number;
+	Device* device;	
 public:
-	Level(Device* d);
-	Level(Device* d, int number);
+	Level(Device* d);	
 	~Level();
 
 	int getBorderLeft();
@@ -25,8 +23,7 @@ public:
 	int getBorderRight();
 
 	void addBlock(Block* block);
-	std::vector<Block*> getBlocks();
-	int getNumber();
+	std::vector<Block*> getBlocks();	
 
 	Rectangle* getBorderLeftRect();
 	Rectangle* getBorderTopRect();

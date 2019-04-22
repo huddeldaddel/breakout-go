@@ -1,19 +1,19 @@
 #include "Level.h"
 
-// Currently just some default values for an empty first level
-Level::Level(Device* d) : device{d}, number{1}, borderLeft{5}, borderTop{5}, borderRight{5} {
-}
-
-Level::Level(Device* d, int number) : device{ d }, number{ number }, borderLeft{ 10 }, borderTop{ 20 }, borderRight{ 10 } {
+Level::Level(Device* d) : device{ d }, borderLeft{ 10 }, borderTop{ 20 }, borderRight{ 10 } {
+	for (int i = 0; i < 15; i++) {
+		addBlock(new Block(10 + i * 20, 60, 20, 10, 0xCA49, 1, 10));
+		addBlock(new Block(10 + i * 20, 70, 20, 10, 0xC347, 1, 10));
+		addBlock(new Block(10 + i * 20, 80, 20, 10, 0xB3C6, 1, 10));
+		addBlock(new Block(10 + i * 20, 90, 20, 10, 0xA525, 1, 10));
+		addBlock(new Block(10 + i * 20, 100, 20, 10, 0x4D09, 1, 10));
+		addBlock(new Block(10 + i * 20, 110, 20, 10, 0x4239, 1, 10));
+	}
 }
 
 Level::~Level() {
 	for (int i = 0; i < blocks.size(); i++)
 		delete blocks.at(i);
-}
-
-int Level::getNumber() {
-	return number;
 }
 
 int Level::getBorderLeft() {

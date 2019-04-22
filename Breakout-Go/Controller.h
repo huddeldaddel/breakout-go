@@ -7,7 +7,6 @@
 #include "CollisionCalculator.h"
 #include "Device.h"
 #include "Level.h"
-#include "LevelFactory.h"
 #include "Renderer.h"
 #include "Slider.h"
 

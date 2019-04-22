@@ -7,11 +7,8 @@ const int DEFAULT_SLIDER_WIDTH = 50;
 
 Controller::Controller(Device* device) : device{ device } {
 	renderer = new Renderer(device);
-
-	LevelFactory* levelFactory = new LevelFactory(device);
-	level = levelFactory->buildLevel(1);
-	delete levelFactory;
-
+	
+	level = new Level(device);	
 	slider = new Slider(0, 0, 0, 0, 0);
 	ball = new Ball(0, 0, DEFAULT_BALL_RADIUS);
 
@@ -182,7 +179,7 @@ void Controller::updateBallPosition(float momentumX, float momentumY) {
 				// We've hit the slider
 				defaultBounceOff = false;	
 				const float factor = (collision->getPoint()->getX() - slider->getPositionX()) / slider->getWidth();
-				const float angle = float((7 - (factor * 6)) * 3.141592653589793 / 8);
+				const float angle = float((7 - (factor * 6)) * 3.141592653589793f / 8);
 				ball->setSpeedX(cosf(angle) *  5.65f);
 				ball->setSpeedY(sinf(angle) * -5.65f);
 			}
