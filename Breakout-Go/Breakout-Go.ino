@@ -16,13 +16,13 @@ Controller* controller = new Controller(device);
 // Initialization
 void setup() {
   GO.begin();
-  GO.lcd.setTextSize(2);
 }
 
 // Main loop
 void loop() {
+  const unsigned long frameStart = millis();
+  
   device->update();                                    // Refresh button states etc.
-
   if(controller->getLives() == 0) {
     printWelcomeMessage();
     if(GO.BtnStart.isPressed() == 1) {
@@ -32,10 +32,14 @@ void loop() {
     controller->updateGame();
   }   
   
-   device->sleep(LOOP_DELAY);
+  const unsigned long duration = millis() - frameStart;
+  const int delay = (int) (LOOP_DELAY - duration);
+  if(delay > 0)
+    device->sleep(delay);
 }
 
 void printWelcomeMessage() {
+  GO.lcd.setTextSize(2);
   GO.lcd.setCursor(95, device->getScreenHeight() / 2 - 30);
   if(controller->isGameOver()) {
     GO.lcd.println("GAME OVER !\n");
