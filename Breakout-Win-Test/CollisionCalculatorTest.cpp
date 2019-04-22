@@ -14,7 +14,7 @@ TEST_CLASS(CollisionCalculatorTest) {
 public:
 
 	TEST_METHOD(getCollisionWithLeftWallTouched) {
-		Ball* ball = new Ball(8, 0, 3);
+		Ball* ball = new Ball(13, 0, 3);
 		Device* device = new TestDevice(false);
 		Level* level = new Level(device);
 		CollisionCalculator* calc = new CollisionCalculator(ball, device, level);
@@ -33,7 +33,7 @@ public:
 	}
 
 	TEST_METHOD(getCollisionWithRightWallTouched) {
-		Ball* ball = new Ball(312, 0, 3);
+		Ball* ball = new Ball(307, 0, 3);
 		Device* device = new TestDevice(false);
 		Level* level = new Level(device);
 		CollisionCalculator* calc = new CollisionCalculator(ball, device, level);
@@ -52,7 +52,7 @@ public:
 	}
 
 	TEST_METHOD(getCollisionWithTopWallTouched) {
-		Ball* ball = new Ball(60, 8, 3);
+		Ball* ball = new Ball(60, 23, 3);
 		Device* device = new TestDevice(false);
 		Level* level = new Level(device);
 		CollisionCalculator* calc = new CollisionCalculator(ball, device, level);

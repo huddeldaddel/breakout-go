@@ -23,21 +23,21 @@
     <ProjectGuid>{E8BCE73A-A6D4-4708-B171-D8AF8D8CE10C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>BreakoutWinTest</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectSubType>NativeUnitTestProject</ProjectSubType>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>false</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>false</UseOfMfc>
@@ -45,14 +45,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>false</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>false</UseOfMfc>
@@ -158,7 +158,6 @@
     <ClInclude Include="..\Breakout-Go\Controller.h" />
     <ClInclude Include="..\Breakout-Go\Device.h" />
     <ClInclude Include="..\Breakout-Go\Level.h" />
-    <ClInclude Include="..\Breakout-Go\LevelFactory.h" />
     <ClInclude Include="..\Breakout-Go\Line.h" />
     <ClInclude Include="..\Breakout-Go\Point.h" />
     <ClInclude Include="..\Breakout-Go\Rectangle.h" />
@@ -175,7 +174,6 @@
     <ClCompile Include="..\Breakout-Go\CollisionCalculator.cpp" />
     <ClCompile Include="..\Breakout-Go\Controller.cpp" />
     <ClCompile Include="..\Breakout-Go\Level.cpp" />
-    <ClCompile Include="..\Breakout-Go\LevelFactory.cpp" />
     <ClCompile Include="..\Breakout-Go\Line.cpp" />
     <ClCompile Include="..\Breakout-Go\Point.cpp" />
     <ClCompile Include="..\Breakout-Go\Rectangle.cpp" />

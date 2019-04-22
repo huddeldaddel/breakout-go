@@ -56,9 +56,9 @@ std::vector<Line> CollisionCalculator::getBallMovementOutlines(float momentumX, 
 float CollisionCalculator::getDistanceToPoint(Line& line, Point* point) const {
 #ifdef _DEBUG	
 	// We use functions from standard library on Windows
-	float a = std::fabsf(line.getX1() - point->getX());
-	float b = std::fabsf(line.getY1() - point->getY());
-	return std::sqrtf(a * a + b * b);
+	double a = std::abs(line.getX1() - point->getX());
+	double b = std::abs(line.getY1() - point->getY());
+	return (float) sqrt(a * a + b * b);
 #else			
 	// We use functions from arduino library on the Odroid-Go
 	float a = abs(line.getX1() - point->getX());
