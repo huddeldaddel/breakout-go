@@ -53,6 +53,10 @@ bool OdroidDevice::isDirectionRightPressed() const {
   return (1 == GO.JOY_X.isAxisPressed()); 
 }
 
+void OdroidDevice::play(const unsigned char* music_data) const {
+  GO.Speaker.playMusic(music_data, 25000);
+}
+
 void OdroidDevice::print(const int lives, const long score) const {
   GO.lcd.setTextColor(BLACK);
   GO.lcd.setTextSize(1);

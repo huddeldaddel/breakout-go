@@ -7,6 +7,7 @@
 #include "CollisionCalculator.h"
 #include "Device.h"
 #include "Level.h"
+#include "MusicPlayer.h"
 #include "Renderer.h"
 #include "Slider.h"
 
@@ -15,6 +16,7 @@ private:
 	Ball* ball;
 	Device* device;
 	Level* level;
+	MusicPlayer* musicPlayer;
 	Slider* slider;
 	Renderer* renderer;
 
@@ -36,7 +38,7 @@ private:
 	void updateBallPositionOnSlider();
 	void updateSliderPosition();
 public:
-	Controller(Device* device);
+	Controller(Device* device, MusicPlayer* mPlayer);
 	~Controller();
 
 	Ball* getBall();

@@ -5,8 +5,8 @@ const int DEFAULT_BALL_RADIUS = 3;
 const float DEFAULT_BALL_SPEED = 4;
 const int DEFAULT_SLIDER_WIDTH = 50;
 
-Controller::Controller(Device* device) : device{ device } {
-	renderer = new Renderer(device);
+Controller::Controller(Device* device, MusicPlayer* mPlayer) : device{ device }, musicPlayer {mPlayer} {
+	renderer = new Renderer(device);	
 	
 	level = new Level(device);	
 	slider = new Slider(0, 0, 0, 0, 0);
@@ -14,13 +14,13 @@ Controller::Controller(Device* device) : device{ device } {
 
 	lives = 0;
 	score = 0;
-	gameOver = false;
+	gameOver = false;	
 }
 
 Controller::~Controller() {
 	delete ball;
 	delete slider;
-	delete level;
+	delete level;	
 	delete renderer;
 }
 
@@ -52,6 +52,8 @@ void Controller::startNewGame() {
 	renderer->renderBorders(level);
 	renderer->renderSlider(slider);
 	renderer->renderBall(ball);
+
+	level->reset();
 	for (int i = 0; i < level->getBlocks().size(); i++)
 		renderer->renderBlock(level->getBlocks().at(i));	
 }
@@ -95,20 +97,20 @@ void Controller::startBall() {
 
 void Controller::handleDeath() {
 	lives -= 1;
-	if (lives > 0) {
-		renderer->removeBall(ball);
-		renderer->removeSlider(slider);
+	renderer->removeBall(ball);
+	renderer->removeSlider(slider);
 
-		resetSlider();
-		resetBall();
-		updateBallPositionOnSlider();
+	resetSlider();
+	resetBall();
+	updateBallPositionOnSlider();
 
-		renderer->renderSlider(slider);
-		renderer->renderBall(ball);
-	} else {
-		gameOver = true;
-	}
-	renderer->renderScore(level, lives, score);
+	renderer->renderSlider(slider);
+	renderer->renderBall(ball);
+
+	if (lives == 0)
+		gameOver = true;			
+
+	renderer->renderScore(level, lives, score);  
 }
 
 void Controller::handleWon() {
@@ -201,6 +203,8 @@ void Controller::updateBallPosition(float momentumX, float momentumY) {
 				const float angle = float((7 - (factor * 6)) * 3.141592653589793f / 8);
 				ball->setSpeedX(cosf(angle) *  5.65f);
 				ball->setSpeedY(sinf(angle) * -5.65f);
+
+				// musicPlayer->playBlip();
 			}
 		}
 
