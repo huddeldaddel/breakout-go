@@ -1,11 +1,20 @@
 #include "OdroidDevice.h"
 
+const int AUDIO_CHANNEL = 0;
+const int VOLUME = 1;
+
 OdroidDevice::OdroidDevice() {
-  
+  Serial.begin(115200);                                                                                     // Attach serial (so you can use the serial monitor of the IDE to inspect the log)  
 }
 
 OdroidDevice::~OdroidDevice() {
-  
+  Serial.end();
+}
+
+void OdroidDevice::beep(const double frequency) const {
+  ledcSetup(AUDIO_CHANNEL, 2000, 8);
+  ledcWriteTone(AUDIO_CHANNEL, frequency);
+  ledcWrite(AUDIO_CHANNEL, VOLUME);    
 }
 
 void OdroidDevice::drawScreenRect(const int x, const int y, const int w, const int h, const unsigned int color) {
@@ -51,6 +60,11 @@ bool OdroidDevice::isDirectionUpPressed() const {
 
 bool OdroidDevice::isDirectionRightPressed() const {
   return (1 == GO.JOY_X.isAxisPressed()); 
+}
+
+void OdroidDevice::mute() const {
+  ledcWriteTone(AUDIO_CHANNEL, 0);
+  ledcWrite(AUDIO_CHANNEL, 0);    
 }
 
 void OdroidDevice::play(const unsigned char* music_data) const {

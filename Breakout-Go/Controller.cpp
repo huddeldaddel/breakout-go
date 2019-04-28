@@ -77,7 +77,7 @@ void Controller::updateGame() {
 			updateBallPositionOnSlider();
 			renderer->renderBall(ball);
 		}
-    }
+  }
     
 	if (ballStarted || isSliderMoving())
 		renderer->renderSlider(slider);
@@ -196,6 +196,7 @@ void Controller::updateBallPosition(float momentumX, float momentumY) {
 				score = score + points;
 				renderer->renderScore(level, lives, score);
 				renderer->removeBlock(rect);
+        device->beep(300);
 			} else {
 				// We've hit the slider
 				defaultBounceOff = false;	
@@ -203,8 +204,7 @@ void Controller::updateBallPosition(float momentumX, float momentumY) {
 				const float angle = float((7 - (factor * 6)) * 3.141592653589793f / 8);
 				ball->setSpeedX(cosf(angle) *  5.65f);
 				ball->setSpeedY(sinf(angle) * -5.65f);
-
-				// musicPlayer->playBlip();
+        device->beep(550.25);  				
 			}
 		}
 

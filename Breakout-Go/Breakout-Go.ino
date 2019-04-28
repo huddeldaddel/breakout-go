@@ -22,8 +22,10 @@ void setup() {
 }
 
 // Main loop
-void loop() {
+void loop() { 
   const unsigned long frameStart = millis();
+
+  device->mute();
   
   device->update();                                                                                         // Refresh button states etc.
   if(controller->getLives() == 0) {
