@@ -16,6 +16,8 @@ public:
 	TestDevice(const bool storeDrawOps);
 	~TestDevice();
 
+	void beep(const double frequency) const;
+
 	void drawScreenRect(const int x, const int y, const int w, const int h, const unsigned int color);
 	void fillScreenRect(const int x, const int y, const int w, const int h, const unsigned int color);
 	void fillScreenCircle(const int x, const int y, const int r, const unsigned int color);
@@ -32,6 +34,8 @@ public:
 	bool isDirectionLeftPressed() const;
 	bool isDirectionUpPressed() const;
 	bool isDirectionRightPressed() const;
+
+	void mute() const;
 
 	void play(const unsigned char* music_data) const;
 	void print(const int lives, const long score) const;

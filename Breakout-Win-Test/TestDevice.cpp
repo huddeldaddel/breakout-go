@@ -6,6 +6,9 @@ TestDevice::TestDevice(const bool storeDrawOps) : storeDrawOperations{ storeDraw
 TestDevice::~TestDevice() {
 }
 
+void TestDevice::beep(const double frequency) const {
+}
+
 void TestDevice::drawScreenRect(const int x, const int y, const int w, const int h, const unsigned int color) {
 	if (storeDrawOperations) {
 		DrawOperationRectangle rectangle{ x, y, w, h, color };
@@ -63,6 +66,9 @@ bool TestDevice::isDirectionUpPressed() const {
 
 bool TestDevice::isDirectionRightPressed() const {
 	return false;
+}
+
+void TestDevice::mute() const {
 }
 
 void TestDevice::play(const unsigned char* music_data) const {

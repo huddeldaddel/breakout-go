@@ -3,11 +3,11 @@
 
 class Device {
   public:
-	  virtual void beep(const double frequency) const = 0;
+	virtual void beep(const double frequency) const = 0;
 
-	  virtual void drawScreenRect(const int x, const int y, const int w, const int h, const unsigned int color) = 0;
+	virtual void drawScreenRect(const int x, const int y, const int w, const int h, const unsigned int color) = 0;
     virtual void fillScreenRect(const int x, const int y, const int w, const int h, const unsigned int color) = 0;
-	  virtual void fillScreenCircle(const int x, const int y, const int r, const unsigned int color) = 0;
+	virtual void fillScreenCircle(const int x, const int y, const int r, const unsigned int color) = 0;
     
     virtual int getScreenWidth() const = 0;
     virtual int getScreenHeight() const = 0;
@@ -22,7 +22,7 @@ class Device {
   	virtual void mute() const = 0;
 
   	virtual void play(const unsigned char* music_data) const = 0;
-	  virtual void print(const int lives, const long score) const = 0;
+	virtual void print(const int lives, const long score) const = 0;
 
     virtual void sleep(const int millis) const = 0;
 };

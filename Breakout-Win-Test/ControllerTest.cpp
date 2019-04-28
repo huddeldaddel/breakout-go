@@ -12,7 +12,8 @@ public:
 
 	TEST_METHOD(GameStart) {
 		Device* device = new TestDevice(false);
-		Controller* controller = new Controller(device);
+		MusicPlayer* mPlayer = new MusicPlayer(device);
+		Controller* controller = new Controller(device, mPlayer);
 		
 		controller->startNewGame();
 		
@@ -25,6 +26,7 @@ public:
 		Assert::AreEqual(227, int(controller->getBall()->getPositionY()));
 
 		delete controller;
+		delete mPlayer;
 		delete device;
 	}
 
