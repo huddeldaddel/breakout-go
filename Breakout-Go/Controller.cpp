@@ -16,6 +16,7 @@ Controller::Controller(Device* device, MusicPlayer* mPlayer) : device{ device },
 	lives = 0;
 	score = 0;
 	gameOver = false;	
+	speedFactor = 0;
 }
 
 Controller::~Controller() {
