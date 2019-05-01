@@ -8,7 +8,7 @@ Breakout-GO is a Breakout clone for the [ODROID-GO Game Kit](https://www.hardker
 
 ### Project Structure
 
-Breakout-GO is beeing developed in C++ using Microsoft Visual Studio 2019 and the Arduino IDE. The project therefor has a project structure that allows you to use both IDEs in parallel:
+Breakout-GO is being developed in C++ using Microsoft Visual Studio 2019 and the Arduino IDE. The project therefore has a project structure that allows you to use both IDEs in parallel:
 
 ![Picture of an ODROID-GO showing text](/Documentation/breakout-project-structure.png "ODROID-GO running a demo application")
 
