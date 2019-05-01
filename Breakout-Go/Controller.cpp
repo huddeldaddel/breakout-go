@@ -4,6 +4,7 @@ const int DEFAULT_LIFE_COUNT = 3;
 const int DEFAULT_BALL_RADIUS = 3;
 const float DEFAULT_BALL_SPEED = 4;
 const int DEFAULT_SLIDER_WIDTH = 50;
+const float DEFAULT_SLIDER_SPEED = 5.5;
 
 Controller::Controller(Device* device, MusicPlayer* mPlayer) : device{ device }, musicPlayer {mPlayer} {
 	renderer = new Renderer(device);	
@@ -44,6 +45,7 @@ void Controller::startNewGame() {
 	gameOver = false;
 	lives = DEFAULT_LIFE_COUNT;
 	score = 0;
+	speedFactor = 1;
 
 	resetSlider();
 	updateBallPositionOnSlider();
@@ -93,8 +95,8 @@ void Controller::updateGame() {
 
 void Controller::startBall() {
 	ball->setMoving(true);
-	ball->setSpeedX(device->isButtonBPressed() ? DEFAULT_BALL_SPEED * -1 : DEFAULT_BALL_SPEED);
-	ball->setSpeedY(DEFAULT_BALL_SPEED * -1);
+	ball->setSpeedX(speedFactor * (device->isButtonBPressed() ? DEFAULT_BALL_SPEED * -1 : DEFAULT_BALL_SPEED));
+	ball->setSpeedY(speedFactor * DEFAULT_BALL_SPEED * -1);
 }
 
 void Controller::handleDeath() {
@@ -148,7 +150,7 @@ void Controller::resetBall() {
 void Controller::resetSlider() {
   slider->setWidth(DEFAULT_SLIDER_WIDTH);
   slider->setHeight(3);
-  slider->setSpeed(5.5);
+  slider->setSpeed(DEFAULT_SLIDER_SPEED);
   slider->setPositionX(float(device->getScreenWidth() - level->getBorderLeft() - level->getBorderRight() - slider->getWidth()) / 2); 
   slider->setPositionY(float(device->getScreenHeight() -10));
 }
@@ -197,16 +199,21 @@ void Controller::updateBallPosition(float momentumX, float momentumY) {
 				// We've hit a block
 				score = score + points;
 				renderer->renderScore(level, lives, score);
-				renderer->removeBlock(rect);
-        device->beep(300);
+				renderer->removeBlock(rect);      
+				if (int(score / 500) != int((score - points) / 500)) {
+					speedFactor += 0.125;
+					device->beep(800);
+				} else {
+					device->beep(300);
+				}
 			} else {
 				// We've hit the slider
 				defaultBounceOff = false;	
 				const float factor = (collision->getPoint()->getX() - slider->getPositionX()) / slider->getWidth();
 				const float angle = float((7 - (factor * 6)) * 3.141592653589793f / 8);
-				ball->setSpeedX(cosf(angle) *  5.65f);
-				ball->setSpeedY(sinf(angle) * -5.65f);
-        device->beep(550.25);  				
+				ball->setSpeedX(speedFactor * cosf(angle) *  5.65f);
+				ball->setSpeedY(speedFactor * sinf(angle) * -5.65f);
+				device->beep(550.25);  				
 			}
 		}
 
@@ -238,9 +245,9 @@ void Controller::updateBallPositionOnSlider() {
 
 void Controller::updateSliderPosition() {
 	if (device->isDirectionLeftPressed()) {
-		slider->setPositionX(slider->getPositionX() - slider->getSpeed());
+		slider->setPositionX(slider->getPositionX() - (speedFactor * slider->getSpeed()));
 	} else if (device->isDirectionRightPressed()) {
-		slider->setPositionX(slider->getPositionX() + slider->getSpeed());
+		slider->setPositionX(slider->getPositionX() + (speedFactor * slider->getSpeed()));
 	}
 		
 	if (slider->getPositionX() < float(level->getBorderLeft())) {

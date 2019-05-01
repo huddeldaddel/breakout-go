@@ -23,6 +23,7 @@ private:
 	bool gameOver;
 	int lives;
 	long score;
+	float speedFactor;
 
 	void handleDeath();
 	void handleWon();
