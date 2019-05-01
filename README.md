@@ -1,7 +1,8 @@
 # Breakout-GO [![Build Status](https://dev.azure.com/huddeldaddel/huddeldaddel/_apis/build/status/huddeldaddel.breakout-go?branchName=master)](https://dev.azure.com/huddeldaddel/huddeldaddel/_build/latest?definitionId=1&branchName=master) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/75bf58cc8f6e48e0974966a4449d7374)](https://app.codacy.com/app/huddeldaddel/breakout-go?utm_source=github.com&utm_medium=referral&utm_content=huddeldaddel/breakout-go&utm_campaign=Badge_Grade_Dashboard)
 
 Breakout-GO is a Breakout clone for the [ODROID-GO Game Kit](https://www.hardkernel.com/shop/odroid-go/) written in C++.
-<iframe width="560" height="315" src="https://www.youtube.com/embed/zoajORw3gnY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+![Breakout-Go start screen](/Documentation/game-start.jpg "ODROID-GO running Breakout-Go")
 
 ## Installation and Getting Started
 
