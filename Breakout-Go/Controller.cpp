@@ -61,13 +61,15 @@ void Controller::startNewGame() {
 void Controller::updateGame() {
 	bool ballStarted = false;
     if(!ball->isMoving() && (device->isButtonAPressed() || device->isButtonBPressed())) {
-		startBall();
-		ballStarted = true;
+		  startBall();
+		  ballStarted = true;
     }
   
-    renderer->removeBall(ball);
-    updateBallPosition(ball->getSpeedX(), ball->getSpeedY());
-    renderer->renderBall(ball);
+	if (ball->isMoving()) {
+		renderer->removeBall(ball);
+		updateBallPosition(ball->getSpeedX(), ball->getSpeedY());
+		renderer->renderBall(ball);
+	}
   
     if(isSliderMoving()) {
 		renderer->removeSlider(slider);

@@ -27,14 +27,10 @@ private:
 	void handleDeath();
 	void handleWon();
 	bool isSliderMoving();
-
 	void resetBall();
 	void resetSlider();
-
 	void startBall();
-
 	void updateBallPosition(float momentumX, float momentumY);
-
 	void updateBallPositionOnSlider();
 	void updateSliderPosition();
 public:
